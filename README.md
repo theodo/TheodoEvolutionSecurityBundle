@@ -6,7 +6,7 @@
 
 Theodo Evolution is a set of tools, methodologies and software components, making the code of a legacy php application more maintainable, easily scalable, secure and fast.
 
-##TheodoEvolutionLayoutRendererBundle
+##TheodoEvolutionSecurityBundle
 
 This bundle allows to manage authentication and user token from the legacy appliction, into the new symfony2 application.
 
