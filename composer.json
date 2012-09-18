@@ -43,6 +43,7 @@
         ]
     },
     "minimum-stability": "dev",
+    "target-dir": "TheodoEvolution/SecurityBundle",
     "extra": {
         "symfony-app-dir": "../../app",
         "symfony-web-dir": "../../web"
