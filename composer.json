@@ -15,6 +15,12 @@
             "TheodoEvolution\\SecurityBundle": ""
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:theodo/theodo-evolution.git"
+        }
+    ],
     "require": {
         "php": ">=5.3.3",
         "symfony/http-foundation": "2.1.*",
@@ -22,7 +28,7 @@
         "symfony/config": "2.1.*",
         "symfony/security": "2.1.*",
         "symfony/security-bundle": "2.1.*",
-        "theodo-evolution/http-foundation": "dev-master"
+        "theodo-evolution/http-foundation": "dev-http-foundation-bundle"
     },
     "scripts": {
         "post-install-cmd": [
@@ -37,6 +43,7 @@
         ]
     },
     "minimum-stability": "dev",
+    "target-dir": "TheodoEvolution/SecurityBundle",
     "extra": {
         "symfony-app-dir": "../../app",
         "symfony-web-dir": "../../web"
