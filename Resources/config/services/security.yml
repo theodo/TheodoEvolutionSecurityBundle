@@ -12,6 +12,7 @@ services:
         arguments:
             - @security.context
             - @security.authentication.manager
+            - @evolution.session.bag_manager_configuration
             - @?logger
 
     evolution.security.authentication.provider:

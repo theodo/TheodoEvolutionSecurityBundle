@@ -13,7 +13,7 @@ use TheodoEvolution\SecurityBundle\Authentication\Token\EvolutionUserToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use TheodoEvolution\HttpFoundationBundle\Manager\VendorSpecific\Symfony10BagConfiguration;
+use TheodoEvolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
 
 /**
  * Class SecurityListener description
@@ -33,6 +33,11 @@ class SecurityListener implements ListenerInterface
     protected $authenticationManager;
 
     /**
+     * @var \TheodoEvolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
+     */
+    protected $bagConfiguration;
+
+    /**
      * @var null|\Symfony\Bridge\Monolog\Logger
      */
     protected $logger;
@@ -42,10 +47,11 @@ class SecurityListener implements ListenerInterface
      * @param AuthenticationManagerInterface $authenticationManager
      * @param null|LoggerInterface           $logger
      */
-    public function __construct(SecurityContextInterface $securityContext, AuthenticationManagerInterface $authenticationManager, LoggerInterface $logger = null)
+    public function __construct(SecurityContextInterface $securityContext, AuthenticationManagerInterface $authenticationManager, BagManagerConfigurationInterface $bagConfiguration, LoggerInterface $logger = null)
     {
         $this->securityContext = $securityContext;
         $this->authenticationManager = $authenticationManager;
+        $this->bagConfiguration = $bagConfiguration;
         $this->logger = $logger;
     }
 
@@ -91,9 +97,8 @@ class SecurityListener implements ListenerInterface
      */
     public function createToken(Request $request)
     {
-        $namespaces = Symfony10BagConfiguration::getNamespaces();
-        $authBag = $request->getSession()->getBag($namespaces[Symfony10BagConfiguration::AUTH_NAMESPACE]);
-        $attributeBag = $request->getSession()->getBag($namespaces[Symfony10BagConfiguration::ATTRIBUTE_NAMESPACE]);
+        $authBag = $request->getSession()->getBag($this->bagConfiguration->getNamespace(BagManagerConfigurationInterface::AUTH_NAMESPACE));
+        $attributeBag = $request->getSession()->getBag($this->bagConfiguration->getNamespace(BagManagerConfigurationInterface::ATTRIBUTE_NAMESPACE));
 
         // Set the user and the authentication status according to the legacy session.
         if (false == $authBag->getValue()
