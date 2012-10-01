@@ -13,7 +13,7 @@ use TheodoEvolution\SecurityBundle\Authentication\Token\EvolutionUserToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use TheodoEvolution\HttpFoundationBundle\Manager\Symfony10BagNamespaces;
+use TheodoEvolution\HttpFoundationBundle\Manager\VendorSpecific\Symfony10BagConfiguration;
 
 /**
  * Class SecurityListener description
@@ -86,13 +86,14 @@ class SecurityListener implements ListenerInterface
     /**
      * Create a user token.
      *
-     * @param  \Symfony\Component\HttpFoundation\Request                                     $request
-     * @return null|\Theodo\EvolutionBundle\Security\Authentication\Token\EvolutionUserToken
+     * @param  \Symfony\Component\HttpFoundation\Request $request
+     * @return null|\TheodoEvolution\SecurityBundle\Authentication\Token\EvolutionUserToken
      */
     public function createToken(Request $request)
     {
-        $authBag = $request->getSession()->getBag(Symfony10BagNamespaces::AUTH_NAMESPACE);
-        $attributeBag = $request->getSession()->getBag(Symfony10BagNamespaces::ATTRIBUTE_NAMESPACE);
+        $namespaces = Symfony10BagConfiguration::getNamespaces();
+        $authBag = $request->getSession()->getBag($namespaces[Symfony10BagConfiguration::AUTH_NAMESPACE]);
+        $attributeBag = $request->getSession()->getBag($namespaces[Symfony10BagConfiguration::ATTRIBUTE_NAMESPACE]);
 
         // Set the user and the authentication status according to the legacy session.
         if (false == $authBag->getValue()
