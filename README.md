@@ -52,11 +52,25 @@ $loader->registerNamespaces(array(
 
 ###With Symfony 2.1
 
-* **TODO**: use composer.
-* *Problem*: theodo-evolution is a private repository. Should we use Satis?
-* Doc:
-  * [Manage package repository with composer](http://getcomposer.org/doc/05-repositories.md#package-2)
-  * [Hosting your own packages](http://getcomposer.org/doc/05-repositories.md#hosting-your-own)
+Add the following lines to your composer.json:
+
+```json
+    "repositories": [
+        ...
+        {
+            "type":"vcs",
+            "url":"git@github.com:theodo/theodo-evolution.git"
+        }
+        ...
+    ],
+    "require": {
+        ...
+        "theodo/evolution-security-bundle": "dev-security-bundle"
+        "theodo/evolution-http-foundation-bundle": "dev-http-foundation-bundle"
+        ...
+    },
+
+```
 
 ##Configuration
 
