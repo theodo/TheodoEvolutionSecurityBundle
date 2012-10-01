@@ -1,6 +1,6 @@
 <?php
 
-namespace TheodoEvolution\SecurityBundle\Factory;
+namespace Theodo\Evolution\SecurityBundle\Factory;
 
 use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

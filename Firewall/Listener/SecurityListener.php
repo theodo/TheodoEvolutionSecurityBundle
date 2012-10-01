@@ -1,6 +1,6 @@
 <?php
 
-namespace TheodoEvolution\SecurityBundle\Firewall\Listener;
+namespace Theodo\Evolution\SecurityBundle\Firewall\Listener;
 
 use Symfony\Component\Security\Http\Firewall\ListenerInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -9,11 +9,11 @@ use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterfac
 use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use TheodoEvolution\SecurityBundle\Authentication\Token\EvolutionUserToken;
+use Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use TheodoEvolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
+use Theodo\Evolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
 
 /**
  * Class SecurityListener description
@@ -33,7 +33,7 @@ class SecurityListener implements ListenerInterface
     protected $authenticationManager;
 
     /**
-     * @var \TheodoEvolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
+     * @var \Theodo\Evolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
      */
     protected $bagConfiguration;
 
@@ -93,7 +93,7 @@ class SecurityListener implements ListenerInterface
      * Create a user token.
      *
      * @param  \Symfony\Component\HttpFoundation\Request $request
-     * @return null|\TheodoEvolution\SecurityBundle\Authentication\Token\EvolutionUserToken
+     * @return null|\Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken
      */
     public function createToken(Request $request)
     {

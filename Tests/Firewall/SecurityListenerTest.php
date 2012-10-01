@@ -1,10 +1,10 @@
 <?php
 
-namespace TheodoEvolution\SecurityBundle\Tests\Firewall;
+namespace Theodo\Evolution\SecurityBundle\Tests\Firewall;
 
-use TheodoEvolution\SecurityBundle\Firewall\Listener\SecurityListener;
+use Theodo\Evolution\SecurityBundle\Firewall\Listener\SecurityListener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use TheodoEvolution\HttpFoundationBundle\Manager\Symfony10BagNamespaces;
+use Theodo\Evolution\HttpFoundationBundle\Manager\Symfony10BagNamespaces;
 
 /**
  * Class SecurityListenerTest description
@@ -111,7 +111,7 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
         $am = $this->listener->getAuthenticationManager();
         $am->expects($this->once())
             ->method('authenticate')
-            ->with($this->isInstanceOf('TheodoEvolution\SecurityBundle\Authentication\Token\EvolutionUserToken'))
+            ->with($this->isInstanceOf('Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken'))
             ->will($this->returnCallback(function($token) {
                 $token->setAuthenticated(true);
 
@@ -166,7 +166,7 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
         $am = $this->listener->getAuthenticationManager();
         $am->expects($this->once())
             ->method('authenticate')
-            ->with($this->isInstanceOf('TheodoEvolution\SecurityBundle\Authentication\Token\EvolutionUserToken'))
+            ->with($this->isInstanceOf('Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken'))
             ->will($this->returnCallback(function() {
                 throw new \Symfony\Component\Security\Core\Exception\AuthenticationException('Exception thrown by AuthenticationProvider::authenticate method.');
             }));
@@ -228,7 +228,7 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
      */
     protected function getAuthBag()
     {
-        $authBag = $this->getMockBuilder('TheodoEvolution\SessionBundle\ScalarBag')
+        $authBag = $this->getMockBuilder('Theodo\Evolution\SessionBundle\ScalarBag')
                     ->disableOriginalConstructor()
                     ->setMethods(array('getValue'))
                     ->getMock();

@@ -1,11 +1,11 @@
 <?php
 
-namespace TheodoEvolution\SecurityBundle\Authentication\Provider;
+namespace Theodo\Evolution\SecurityBundle\Authentication\Provider;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use TheodoEvolution\SecurityBundle\Authentication\Token\EvolutionUserToken;
+use Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 

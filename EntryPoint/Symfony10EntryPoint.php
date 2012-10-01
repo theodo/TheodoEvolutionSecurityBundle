@@ -1,13 +1,13 @@
 <?php
 
-namespace TheodoEvolution\SecurityBundle\EntryPoint;
+namespace Theodo\Evolution\SecurityBundle\EntryPoint;
 
 use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use TheodoEvolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
+use Theodo\Evolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
 
 /**
  * Symfony10EntryPoint class.
