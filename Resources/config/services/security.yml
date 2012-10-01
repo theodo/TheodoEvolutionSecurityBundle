@@ -31,3 +31,4 @@ services:
         arguments:
             - ''
             - @session
+            - @evolution.session.bag_manager_configuration

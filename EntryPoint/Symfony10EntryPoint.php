@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use TheodoEvolution\HttpFoundationBundle\Manager\Symfony10BagNamespaces;
+use TheodoEvolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
 
 /**
  * Symfony10EntryPoint class.
@@ -26,14 +26,17 @@ class Symfony10EntryPoint implements AuthenticationEntryPointInterface
      */
     private $session;
 
+    private $bagConfiguration;
+
     /**
      * @param                                                            $loginPath
      * @param \Symfony\Component\HttpFoundation\Session\SessionInterface $session
      */
-    public function __construct($loginPath, SessionInterface $session)
+    public function __construct($loginPath, SessionInterface $session, BagManagerConfigurationInterface $bagConfiguration)
     {
         $this->loginPath = $loginPath;
         $this->session   = $session;
+        $this->bagConfiguration = $bagConfiguration;
     }
 
     /**
@@ -60,7 +63,7 @@ class Symfony10EntryPoint implements AuthenticationEntryPointInterface
      */
     public function prepareSession(Request $request)
     {
-        $attributes = $this->session->getBag(Symfony10BagNamespaces::ATTRIBUTE_NAMESPACE);
+        $attributes = $this->session->getBag($this->bagConfiguration->getNamespace(BagManagerConfigurationInterface::ATTRIBUTE_NAMESPACE));
         $attributes->set('symfony/user/sfUser/attributes.signin_url', $request->getUri());
         $attributes->set('symfony/user/sfUser/attributes.referer', $request->getUri());
         $this->session->save();
