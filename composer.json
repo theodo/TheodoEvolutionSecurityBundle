@@ -28,7 +28,7 @@
         "symfony/config": "2.1.*",
         "symfony/security": "2.1.*",
         "symfony/security-bundle": "2.1.*",
-        "theodo-evolution/http-foundation": "dev-http-foundation-bundle"
+        "theodo/evolution-http-foundation-bundle": "dev-http-foundation-bundle"
     },
     "scripts": {
         "post-install-cmd": [
