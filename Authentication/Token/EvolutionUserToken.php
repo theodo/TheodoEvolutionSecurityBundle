@@ -1,6 +1,6 @@
 <?php
 
-namespace TheodoEvolution\SecurityBundle\Authentication\Token;
+namespace Theodo\Evolution\SecurityBundle\Authentication\Token;
 
 use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 

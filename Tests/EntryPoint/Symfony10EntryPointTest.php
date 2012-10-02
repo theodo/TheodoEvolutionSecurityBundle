@@ -1,9 +1,9 @@
 <?php
 
-namespace TheodoEvolution\SecurityBundle\Tests\EntryPoint;
+namespace Theodo\Evolution\SecurityBundle\Tests\EntryPoint;
 
-use TheodoEvolution\SecurityBundle\EntryPoint\Symfony10EntryPoint;
-use TheodoEvolution\HttpFoundationBundle\Manager\Symfony10BagNamespaces;
+use Theodo\Evolution\SecurityBundle\EntryPoint\Symfony10EntryPoint;
+use Theodo\Evolution\HttpFoundationBundle\Manager\Symfony10BagNamespaces;
 use Symfony\Component\HttpFoundation\Session\Attribute\NamespacedAttributeBag;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpFoundation\Session\Session;

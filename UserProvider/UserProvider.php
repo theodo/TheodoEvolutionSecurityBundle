@@ -1,12 +1,12 @@
 <?php
 
-namespace TheodoEvolution\SecurityBundle\UserProvider;
+namespace Theodo\Evolution\SecurityBundle\UserProvider;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use TheodoEvolution\SecurityBundle\EvolutionUser;
+use Theodo\Evolution\SecurityBundle\EvolutionUser;
 use Allomatch\ApiBundle\Service\UserApi;
 
 /**
@@ -80,6 +80,6 @@ class UserProvider implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return $class === 'TheodoEvolution\SecurityBundle\EvolutionUser';
+        return $class === 'Theodo\Evolution\SecurityBundle\EvolutionUser';
     }
 }

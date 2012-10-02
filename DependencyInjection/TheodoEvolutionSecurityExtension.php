@@ -1,6 +1,6 @@
 <?php
 
-namespace TheodoEvolution\SecurityBundle\DependencyInjection;
+namespace Theodo\Evolution\SecurityBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class TheodoEvolutionSecurityExtension extends Extension
+class Theodo\EvolutionSecurityExtension extends Extension
 {
     /**
      * @var \Symfony\Component\DependencyInjection\Loader\YamlFileLoader

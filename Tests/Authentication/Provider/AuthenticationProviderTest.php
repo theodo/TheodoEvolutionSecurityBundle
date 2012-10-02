@@ -1,9 +1,9 @@
 <?php
 
-namespace TheodoEvolution\SecurityBundle\Tests\Authentication\Provider;
+namespace Theodo\Evolution\SecurityBundle\Tests\Authentication\Provider;
 
-use TheodoEvolution\SecurityBundle\Authentication\Provider\AuthenticationProvider;
-use TheodoEvolution\SecurityBundle\Authentication\Token\EvolutionUserToken;
+use Theodo\Evolution\SecurityBundle\Authentication\Provider\AuthenticationProvider;
+use Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken;
 
 /**
  * Class AuthenticationProviderTest description
@@ -33,7 +33,7 @@ class AuthenticationProviderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array($this->getMock('Symfony\Component\Security\Core\Authentication\Token\AnonymousToken', array(), array(), '', false), false),
-            array($this->getMock('TheodoEvolution\SecurityBundle\Authentication\Token\EvolutionUserToken', array(), array(), '', false), true),
+            array($this->getMock('Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken', array(), array(), '', false), true),
         );
     }
 
@@ -92,7 +92,7 @@ class AuthenticationProviderTest extends \PHPUnit_Framework_TestCase
         $authentictatedToken = $this->provider->authenticate($token);
 
         $this->assertFalse($token->isAuthenticated());
-        $this->assertInstanceOf('TheodoEvolution\SecurityBundle\Authentication\Token\EvolutionUserToken', $authentictatedToken);
+        $this->assertInstanceOf('Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken', $authentictatedToken);
         $this->assertTrue($authentictatedToken->isAuthenticated());
     }
 
@@ -139,7 +139,7 @@ class AuthenticationProviderTest extends \PHPUnit_Framework_TestCase
      */
     protected function getUser()
     {
-        $user = $this->getMockBuilder('TheodoEvolution\SecurityBundle\EvolutionUser')
+        $user = $this->getMockBuilder('Theodo\Evolution\SecurityBundle\EvolutionUser')
             ->disableOriginalConstructor()
             ->setMethods(array('__toString', 'getRoles'))
             ->getMock();
