@@ -89,17 +89,7 @@ public function registerBundles()
 }
 ```
 
-* Configure the security bundle in the app/config/config.yml file:
-
-```
-theodo_evolution_security:
-    login_path: http://myPath.com/login
-```
-
-
-The login_path parameter should be composed in a parameter.ini (or .yml) file and put in config.yml with an alias.
-This URL is used for redirect symfony2 app to the legacy login page.
-
+* Create and define a evolution.security.authentication.entry_point class see Symony10EntryPoint for example
 * Create and define a evolution.security.legacy_user_repository service implementing LegacyUserRepositoryInterface
 * Use Theodo provider in your security.yml:
 
