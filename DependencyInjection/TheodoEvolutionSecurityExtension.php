@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class Theodo\EvolutionSecurityExtension extends Extension
+class TheodoEvolutionSecurityExtension extends Extension
 {
     /**
      * @var \Symfony\Component\DependencyInjection\Loader\YamlFileLoader
