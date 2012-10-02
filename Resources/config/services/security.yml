@@ -1,9 +1,9 @@
 parameters:
-    evolution.security.authentication.listener.class: TheodoEvolution\SecurityBundle\Firewall\Listener\SecurityListener
-    evolution.security.authentication.provider.class: TheodoEvolution\SecurityBundle\Authentication\Provider\AuthenticationProvider
-    evolution.security.user_provider.class:           TheodoEvolution\SecurityBundle\UserProvider\UserProvider
+    evolution.security.authentication.listener.class: Theodo\Evolution\SecurityBundle\Firewall\Listener\SecurityListener
+    evolution.security.authentication.provider.class: Theodo\Evolution\SecurityBundle\Authentication\Provider\AuthenticationProvider
+    evolution.security.user_provider.class:           Theodo\Evolution\SecurityBundle\UserProvider\UserProvider
 
-    evolution.security.authentication.symfony10_entry_point.class: TheodoEvolution\SecurityBundle\EntryPoint\Symfony10EntryPoint
+    evolution.security.authentication.symfony10_entry_point.class: Theodo\Evolution\SecurityBundle\EntryPoint\Symfony10EntryPoint
 
 services:
     evolution.security.authentication.listener:

@@ -101,6 +101,16 @@ The login_path parameter should be composed in a parameter.ini (or .yml) file an
 This URL is used for redirect symfony2 app to the legacy login page.
 
 * Create and define a evolution.security.legacy_user_repository service implementing LegacyUserRepositoryInterface
+* Use Theodo provider in your security.yml:
+
+```
+security:
+    firewalls:
+        secured_area:
+            pattern:    ^/demo/secured/
+            evolution:
+                login_path: /demo/secured/login
+```
 
 ## HowTo
 
