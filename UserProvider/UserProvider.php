@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Theodo\Evolution\SecurityBundle\EvolutionUser;
-use Allomatch\ApiBundle\Service\UserApi;
+use Theodo\Evolution\SecurityBundle\UserProvider\LegacyUserRepositoryInterface;
 
 /**
  * Class UserProvider description
@@ -16,11 +16,11 @@ use Allomatch\ApiBundle\Service\UserApi;
  */
 class UserProvider implements UserProviderInterface
 {
-    protected $api;
+    protected $userRepository;
 
-    public function __construct(UserApi $api)
+    public function __construct(LegacyUserRepositoryInterface $userRepository)
     {
-        $this->api = $api;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -40,7 +40,7 @@ class UserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
-        $guardUser = $this->api->findOneByUsername($username);
+        $guardUser = $this->userRepository->findOneByUsername($username);
 
         if (!$guardUser) {
             throw new UsernameNotFoundException(sprintf('The username "%s" has not been found', $username));
