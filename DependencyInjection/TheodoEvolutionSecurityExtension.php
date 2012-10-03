@@ -33,7 +33,9 @@ class TheodoEvolutionSecurityExtension extends Extension
     }
 
     /**
-     * Load security service definition file
+     * Loads security.yml.
+     * Sets evolution.security.authentication.entry_point service.
+     * Sets login path.
      *
      * @param array            $config
      * @param ContainerBuilder $container
@@ -44,8 +46,7 @@ class TheodoEvolutionSecurityExtension extends Extension
 
         $entryPointClass = $container->getParameter('evolution.security.authentication.symfony'.$this->getVersion($container).'_entry_point.class');
         $container->getDefinition('evolution.security.authentication.entry_point')
-            ->setClass($entryPointClass)
-            ->replaceArgument(0, $config['login_path']);
+            ->setClass($entryPointClass);
     }
 
     /**

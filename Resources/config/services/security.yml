@@ -29,6 +29,6 @@ services:
         class: %evolution.security.authentication.entry_point.class%
         public: false
         arguments:
-            - ''
+            - %evolution.security.entry_point.url%
             - @session
             - @evolution.session.bag_manager_configuration
