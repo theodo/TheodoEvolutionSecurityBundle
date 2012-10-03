@@ -4,7 +4,7 @@ namespace Theodo\Evolution\SecurityBundle\Tests\Firewall;
 
 use Theodo\Evolution\SecurityBundle\Firewall\Listener\SecurityListener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Theodo\Evolution\HttpFoundationBundle\Manager\Symfony10BagNamespaces;
+use Theodo\Evolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
 
 /**
  * Class SecurityListenerTest description
@@ -13,6 +13,10 @@ use Theodo\Evolution\HttpFoundationBundle\Manager\Symfony10BagNamespaces;
  */
 class SecurityListenerTest extends \PHPUnit_Framework_TestCase
 {
+    // Session namespaces used by mocked bags
+    const AUTH_NAMESPACE = 'auth';
+    const ATTR_NAMESPACE = 'attr';
+
     protected $listener;
 
     protected $event;
@@ -22,10 +26,10 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
         $am = $this->getMock('Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface', array(), array(), '', false);
         $adm = $this->getMock('Symfony\Component\Security\Core\Authorization\AccessDecisionManager', array(), array(), '', false);
         $sc = new \Symfony\Component\Security\Core\SecurityContext($am, $adm);
-
+        $bm = $this->getBagManagerConfigurationMock();
         $logger = new \Symfony\Component\HttpKernel\Tests\Logger();
 
-        $this->listener = new SecurityListener($sc, $am, $logger);
+        $this->listener = new SecurityListener($sc, $am, $bm, $logger);
 
         $request = $this->getMock('Symfony\Component\HttpFoundation\Request');
 
@@ -56,8 +60,8 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
         $session->expects($this->exactly(2))
             ->method('getBag')
             ->will($this->returnValueMap(array(
-                array(Symfony10BagNamespaces::AUTH_NAMESPACE, $authBag),
-                array(Symfony10BagNamespaces::ATTRIBUTE_NAMESPACE, $attrBag),
+                array(self::AUTH_NAMESPACE, $authBag),
+                array(self::ATTR_NAMESPACE, $attrBag),
         )));
 
         $request = $this->event->getRequest();
@@ -95,8 +99,8 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
         $session->expects($this->exactly(2))
             ->method('getBag')
             ->will($this->returnValueMap(array(
-                array(Symfony10BagNamespaces::AUTH_NAMESPACE, $authBag),
-                array(Symfony10BagNamespaces::ATTRIBUTE_NAMESPACE, $attrBag),
+                array(self::AUTH_NAMESPACE, $authBag),
+                array(self::ATTR_NAMESPACE, $attrBag),
         )));
 
         $request = $this->event->getRequest();
@@ -150,8 +154,8 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
         $session->expects($this->exactly(2))
             ->method('getBag')
             ->will($this->returnValueMap(array(
-                array(Symfony10BagNamespaces::AUTH_NAMESPACE, $authBag),
-                array(Symfony10BagNamespaces::ATTRIBUTE_NAMESPACE, $attrBag),
+                array(self::AUTH_NAMESPACE, $authBag),
+                array(self::ATTR_NAMESPACE, $attrBag),
         )));
 
         $request = $this->event->getRequest();
@@ -249,5 +253,21 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
 
         return $attrBag;
+    }
+
+    /**
+     * Mock BagManagerConfigurationInterface to use common namespaces in the whole test
+     */
+    private function getBagManagerConfigurationMock()
+    {
+        $mock = $this->getMock('Theodo\Evolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface');
+        $mock->expects($this->any())
+            ->method('getNamespace')
+            ->will($this->returnValueMap(array(
+                array(BagManagerConfigurationInterface::AUTH_NAMESPACE, self::AUTH_NAMESPACE),
+                array(BagManagerConfigurationInterface::ATTRIBUTE_NAMESPACE, self::ATTR_NAMESPACE),
+            )));
+
+        return $mock;
     }
 }
