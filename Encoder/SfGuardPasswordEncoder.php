@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
  * sfGuardPlugin for Symfony 1. It's main purpose is to serve as a security compatiblity layer
  * when migrating from Symfony 1 to Symfony2.
  *
- * When you finish the migration of all security functions of your legacy application it 
+ * When you finish the migration of all security functions of your legacy application it
  * is strongly suggested you migrate your user managemenet to another bundle.
  *
  * WARNINGS:
@@ -23,7 +23,7 @@ class SfGuardPasswordEncoder implements PasswordEncoderInterface
 
     /**
      * Configures the Encoder
-     * 
+     *
      * @param callable $algorithm
      */
     public function __construct($algorithm)
@@ -51,4 +51,3 @@ class SfGuardPasswordEncoder implements PasswordEncoderInterface
         return $encoded == call_user_func($this->algorithm, $salt.$raw);
     }
 }
-

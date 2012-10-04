@@ -45,4 +45,3 @@ YAML;
         return $parser->parse($config);
     }
 }
-

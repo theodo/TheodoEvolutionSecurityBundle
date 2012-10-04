@@ -7,7 +7,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * This class is a Bridge to assure the legacy model compatibility with the UserInterface.
  * It may be also compatible with any objects implementing the same interface.
- * 
+ *
  * @author Benjamin Grandfond <benjaming@theodo.fr>
  * @author Marek Kalnik <marekk@theodo.fr>
  */

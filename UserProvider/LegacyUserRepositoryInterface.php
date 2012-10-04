@@ -8,10 +8,8 @@ namespace Theodo\Evolution\SecurityBundle\UserProvider;
 interface LegacyUserRepositoryInterface
 {
     /**
-     * @param string $username
+     * @param  string       $username
      * @return \sfGuardUser guarduser
      */
     public function findOneByUsername($username);
 }
-
-

@@ -2,25 +2,25 @@
 
 namespace Theodo\Evolution\SecurityBundle\Firewall\Listener;
 
-use Symfony\Component\Security\Http\Firewall\ListenerInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\Security\Core\SecurityContextInterface;
-use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
-use Symfony\Component\HttpKernel\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Log\LoggerInterface;
+use Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Http\Firewall\ListenerInterface;
 use Theodo\Evolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
+use Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken;
 
 /**
  * Class SecurityListener description
  *
  * @author Benjamin Grandfond <benjaming@theodo.fr>
  */
-class SecurityListener implements ListenerInterface
+abstract class SecurityListener implements ListenerInterface
 {
     /**
      * @var \Symfony\Component\Security\Core\SecurityContextInterface
@@ -92,36 +92,10 @@ class SecurityListener implements ListenerInterface
     /**
      * Create a user token.
      *
-     * @param  \Symfony\Component\HttpFoundation\Request $request
+     * @param  \Symfony\Component\HttpFoundation\Request                                     $request
      * @return null|\Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken
      */
-    public function createToken(Request $request)
-    {
-        $authBag = $request->getSession()->getBag($this->bagConfiguration->getNamespace(BagManagerConfigurationInterface::AUTH_NAMESPACE));
-        $attributeBag = $request->getSession()->getBag($this->bagConfiguration->getNamespace(BagManagerConfigurationInterface::ATTRIBUTE_NAMESPACE));
-
-        // Set the user and the authentication status according to the legacy session.
-        if (false == $authBag->getValue()
-            || false == $attributeBag->has('sfGuardSecurityUser.username')
-        ) {
-            if (null !== $this->logger) {
-                $this->logger->debug('The legacy user is not authenticated.');
-            }
-
-            if ($this->securityContext->getToken() instanceof EvolutionUserToken) {
-                $this->setAnonymousToken();
-            }
-
-            return null;
-        }
-
-        // Create the token.
-        $token = new EvolutionUserToken();
-        $token->setUser($attributeBag->get('sfGuardSecurityUser.username'));
-        $token->setAttribute('is_authenticated', $authBag->getValue());
-
-        return $token;
-    }
+    abstract public function createToken(Request $request);
 
     /**
      * Set the security context token as anonymous.

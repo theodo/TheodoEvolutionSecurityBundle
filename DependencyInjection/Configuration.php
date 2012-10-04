@@ -33,7 +33,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
-        
+
         foreach ($this->getSupportedLegacyTypes() as $type) {
             call_user_func(array($this, 'add' . $this->convertToCamel($type) . 'Section'), $rootNode);
         }

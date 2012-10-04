@@ -1,17 +1,17 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle\Tests\Firewall;
+namespace Theodo\Evolution\SecurityBundle\Tests\Firewall\Listener\VendorSpecific;
 
-use Theodo\Evolution\SecurityBundle\Firewall\Listener\SecurityListener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Theodo\Evolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
+use Theodo\Evolution\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony10SecurityListener as SecurityListener;
 
 /**
  * Class SecurityListenerTest description
  *
  * @author Benjamin Grandfond <benjaming@theodo.fr>
  */
-class SecurityListenerTest extends \PHPUnit_Framework_TestCase
+class Symfony10SecurityListenerTest extends \PHPUnit_Framework_TestCase
 {
     // Session namespaces used by mocked bags
     const AUTH_NAMESPACE = 'auth';
@@ -96,10 +96,11 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('allomatch'));
 
         $session = $this->getSession();
-        $session->expects($this->exactly(2))
+        $session->expects($this->exactly(3))
             ->method('getBag')
             ->will($this->returnValueMap(array(
                 array(self::AUTH_NAMESPACE, $authBag),
+                array(self::ATTR_NAMESPACE, $attrBag),
                 array(self::ATTR_NAMESPACE, $attrBag),
         )));
 
@@ -108,7 +109,7 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
             ->method('hasSession')
             ->will($this->returnValue(true));
 
-        $request->expects($this->exactly(2))
+        $request->expects($this->exactly(3))
             ->method('getSession')
             ->will($this->returnValue($session));
 
@@ -151,10 +152,11 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('allomatch'));
 
         $session = $this->getSession();
-        $session->expects($this->exactly(2))
+        $session->expects($this->exactly(3))
             ->method('getBag')
             ->will($this->returnValueMap(array(
                 array(self::AUTH_NAMESPACE, $authBag),
+                array(self::ATTR_NAMESPACE, $attrBag),
                 array(self::ATTR_NAMESPACE, $attrBag),
         )));
 
@@ -163,7 +165,7 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
             ->method('hasSession')
             ->will($this->returnValue(true));
 
-        $request->expects($this->exactly(2))
+        $request->expects($this->exactly(3))
             ->method('getSession')
             ->will($this->returnValue($session));
 
