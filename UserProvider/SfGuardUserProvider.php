@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Theodo\Evolution\SecurityBundle\EvolutionUser;
+use Theodo\Evolution\SecurityBundle\User\SfGuardEvolutionUser;
 use Theodo\Evolution\SecurityBundle\UserProvider\LegacyUserRepositoryInterface;
 
 /**
@@ -14,7 +14,7 @@ use Theodo\Evolution\SecurityBundle\UserProvider\LegacyUserRepositoryInterface;
  *
  * @author Benjamin Grandfond <benjaming@theodo.fr>
  */
-class UserProvider implements UserProviderInterface
+class SfGuardUserProvider implements UserProviderInterface
 {
     protected $userRepository;
 
@@ -46,7 +46,7 @@ class UserProvider implements UserProviderInterface
             throw new UsernameNotFoundException(sprintf('The username "%s" has not been found', $username));
         }
 
-        return new EvolutionUser($guardUser);
+        return new SfGuardEvolutionUser($guardUser);
     }
 
     /**
@@ -64,7 +64,7 @@ class UserProvider implements UserProviderInterface
      */
     public function refreshUser(UserInterface $user)
     {
-        if (!$user instanceof EvolutionUser) {
+        if (!$user instanceof SfGuardEvolutionUser) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }
 

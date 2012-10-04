@@ -1,15 +1,17 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle;
+namespace Theodo\Evolution\SecurityBundle\User;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class EvolutionUser description
- *
+ * This class is a Bridge to assure the legacy model compatibility with the UserInterface.
+ * It may be also compatible with any objects implementing the same interface.
+ * 
  * @author Benjamin Grandfond <benjaming@theodo.fr>
+ * @author Marek Kalnik <marekk@theodo.fr>
  */
-class EvolutionUser implements UserInterface
+class SfGuardEvolutionUser implements UserInterface
 {
     /**
      * @var \sfGuardUser
@@ -21,7 +23,7 @@ class EvolutionUser implements UserInterface
      */
     private $roles = array();
 
-    public function __construct(\sfGuardUser $user)
+    public function __construct($user)
     {
         $this->guardUser = $user;
     }
@@ -45,12 +47,12 @@ class EvolutionUser implements UserInterface
     public function getRoles()
     {
         if (true == $this->guardUser->getIsSuperAdmin()) {
-            $this->roles[] = 'ROLE_AM_ADMIN';
+            $this->roles[] = 'ROLE_LEGACY_ADMIN';
         }
 
         $legacyCredentials = $this->guardUser->getAllPermissionNames();
         foreach ($legacyCredentials as $credential) {
-            $this->roles[] = 'ROLE_AM_'.strtoupper($credential);
+            $this->roles[] = 'ROLE_LEGACY_'.strtoupper($credential);
         }
 
         return $this->roles;
