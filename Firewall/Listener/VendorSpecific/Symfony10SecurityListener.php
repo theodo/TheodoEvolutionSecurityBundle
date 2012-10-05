@@ -43,7 +43,7 @@ class Symfony10SecurityListener extends SecurityListener
         return $token;
     }
 
-    protected function extractUsername(Request $request)
+    private function extractUsername(Request $request)
     {
         $attributeBag = $request->getSession()
             ->getBag($this->bagConfiguration->getNamespace(BagManagerConfigurationInterface::ATTRIBUTE_NAMESPACE));

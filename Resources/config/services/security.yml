@@ -1,5 +1,5 @@
 parameters:
-    evolution.security.authentication.listener.class: Theodo\Evolution\SecurityBundle\Firewall\Listener\SecurityListener
+    evolution.security.authentication.listener.class: Theodo\Evolution\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony10SecurityListener
     evolution.security.authentication.provider.class: Theodo\Evolution\SecurityBundle\Authentication\Provider\AuthenticationProvider
     evolution.security.user_provider.class:           Theodo\Evolution\SecurityBundle\UserProvider\UserProvider
 
