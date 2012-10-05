@@ -22,6 +22,8 @@
     <target name="phpunit" depends="composer">
         <exec dir="${basedir}" executable="phpunit" failonerror="true">
             <arg line="--log-junit ${basedir}/build/logs/phpunit-log.xml"/>
+            <arg line="--coverage-clover ${basedir}/build/logs/coverage.xml"/>
+            <arg line="--coverage-html ${basedir}/build/coverage"/>
         </exec>
     </target>
 
