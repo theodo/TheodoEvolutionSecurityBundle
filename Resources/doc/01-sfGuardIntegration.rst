@@ -37,7 +37,27 @@ Integration instructions
             evolution
                 id: evolution.security.user_provider
 
-3. For symfony 1.4 change the security listener::
+3. [SF14] Configure the user repository and inject it into authentication listener::
+
+    services:
+        acme.user_repository:
+            class: Acme\DemoBundle\Entity\LegacyUserRepository
+            arguments:
+                - @doctrine.orm.entity_manager
+
+        evolution.security.authentication.listener:
+            class: %evolution.security.authentication.listener.class%
+            public: false
+            arguments:
+                - @security.context
+                - @security.authentication.manager
+                - @evolution.session.bag_manager_configuration
+                - @?logger
+            calls:
+                - [setUserRepository, [@acme.user_repository]]
 
     parameters:
         evolution.security.authentication.listener.class: Theodo\Evolution\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony14SecurityListener 
+
+The LegacyUserRepostiory has to implement the Symfony14UserRepositoryInterface for symfony 1.4
+

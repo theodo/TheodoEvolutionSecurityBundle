@@ -90,21 +90,6 @@ public function registerBundles()
 }
 ```
 
-* Create and define a evolution.security.authentication.entry_point class see Symony10EntryPoint for example
-* Create and define a evolution.security.legacy_user_repository service implementing LegacyUserRepositoryInterface
-* Use Theodo provider in your security.yml:
-
-```
-security:
-    firewalls:
-        secured_area:
-            pattern:    ^/demo/secured/
-            evolution:
-                login_path: /demo/secured/login
-```
-
-##Documentation
-
-Be sure to check the [documentation](Resources/doc/index.rst)
+* See the [documentation](Resources/doc/index.rst) for legacy specific configuration
 
 Tip: you can also look at the [Tests](https://github.com/theodo/theodo-evolution/tree/security-bundle/Tests)
