@@ -15,28 +15,29 @@ Verify:
 Integration instructions
 ------------------------
 
-1. Configure the Encoder
+1. Configure the Encoder::
 
-```
-# app/config/config.yml
-theodo_evolution_security:
-    legacy: sf_guard
+    # app/config/config.yml
+    theodo_evolution_security:
+        legacy: sf_guard
 
-    #optional
-    sf_guard:
-        algorithm: [sha1|md5]
-```
+        #optional
+        sf_guard:
+            algorithm: [sha1|md5]
 
-2. In your security.yml, define the encoder and provider for your sfGuardUser entity.
+2. In your security.yml, define the encoder and provider for your sfGuardUser entity::
 
-```
-# app/config/security.yml
-security:
-    encoders:
-        Acme\LegacyCompatBundle\Entity\SfGuardUser:
-            id: evolution.security.encoder
+    # app/config/security.yml
+    security:
+        encoders:
+            Acme\LegacyCompatBundle\Entity\SfGuardUser:
+                id: evolution.security.encoder
 
-    providers:
-        evolution
-            id: evolution.security.user_provider
-```
+        providers:
+            evolution
+                id: evolution.security.user_provider
+
+3. For symfony 1.4 change the security listener::
+
+    parameters:
+        evolution.security.authentication.listener.class: Theodo\Evolution\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony14SecurityListener 

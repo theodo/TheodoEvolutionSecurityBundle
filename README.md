@@ -15,6 +15,7 @@ This bundle has a dependence with [TheodoEvolutionHttpFoundationBundle](https://
 Works for legacy app made with:
 
 * Symfony 1.0
+* Symfony 1.4
 
 ##Installation
 
@@ -102,8 +103,8 @@ security:
                 login_path: /demo/secured/login
 ```
 
-## HowTo
+##Documentation
 
-**TODO**: Test the service on another legacy project.
+Be sure to check the [documentation](Resources/doc/index.rst)
 
-Tip: look at the [Tests](https://github.com/theodo/theodo-evolution/tree/security-bundle/Tests)
+Tip: you can also look at the [Tests](https://github.com/theodo/theodo-evolution/tree/security-bundle/Tests)
