@@ -113,4 +113,10 @@ class SfGuardEvolutionUser implements UserInterface
     {
         return $this->guardUser;
     }
+
+    public function getUserId()
+    {
+        return $this->guardUser->getId();
+    }
 }
+

@@ -14,10 +14,6 @@ use Theodo\Evolution\SecurityBundle\Tests\Firewall\Listener\BaseSecurityListener
  */
 class Symfony10SecurityListenerTest extends BaseSecurityListenerTestCase
 {
-    // Session namespaces used by mocked bags
-    const AUTH_NAMESPACE = 'auth';
-    const ATTR_NAMESPACE = 'attr';
-
     protected $listener;
 
     protected $event;

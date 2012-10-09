@@ -19,39 +19,7 @@ Works for legacy app made with:
 
 ##Installation
 
-###With Symfony 2.0
-
-* 1. Add this in your deps file:
-
-```
-[TheodoEvolutionHttpFoundationBundle]
-    git=https://github.com/theodo/theodo-evolution.git
-    version=origin/http-foundation-bundle
-    target=../src/TheodoEvolution/HttpFoundationBundle
-[TheodoEvolutionSecurityBundle]
-    git=https://github.com/theodo/theodo-evolution.git
-    version=origin/security-bundle
-    target=../src/TheodoEvolution/SecurityBundle
-```
-
-* 2. Then execute this command in the root of your project:
-
-```
-$ bin/vendors install
-```
-
-* 3. Finally, add the bundles in your app/autoload.php:
-
-```php
-$loader->registerNamespaces(array(
-    
-    // Some namespaces
-    'TheodoEvolution\\HttpFoundationBundle'   => __DIR__.'/../src/TheodoEvolution/HttpFoundationBundle',
-    'TheodoEvolution\\SecurityBundle'   => __DIR__.'/../src/TheodoEvolution/SecurityBundle',
-));
-```
-
-###With Symfony 2.1
+This bundle requires Symfony 2.1 or higher.
 
 Add the following lines to your composer.json:
 

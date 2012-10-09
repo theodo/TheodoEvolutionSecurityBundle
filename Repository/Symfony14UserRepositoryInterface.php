@@ -1,10 +1,12 @@
 <?php
 namespace Theodo\Evolution\SecurityBundle\Repository;
 
+use Theodo\Evolution\SecurityBundle\UserProvider\LegacyUserRepositoryInterface;
+
 /**
  * @author Marek Kalnik <marekk@theodo.fr>
  */
-interface Symfony14UserRepositoryInterface
+interface Symfony14UserRepositoryInterface extends LegacyUserRepositoryInterface
 {
     /**
      * Finds and returns a user
@@ -15,3 +17,4 @@ interface Symfony14UserRepositoryInterface
      */
     public function findOneByUserId($userId);
 }
+
