@@ -29,32 +29,36 @@ class TheodoEvolutionSecurityExtension extends Extension
 
         $this->loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/services'));
 
-        $this->loadSecurity($config, $container);
-    }
-
-    /**
-     * Loads security.yml.
-     * Sets evolution.security.authentication.entry_point service.
-     * Sets login path.
-     *
-     * @param array            $config
-     * @param ContainerBuilder $container
-     */
-    public function loadSecurity(array $config, ContainerBuilder $container)
-    {
         $this->loader->load('security.yml');
 
-        $entryPointClass = $container->getParameter('evolution.security.authentication.symfony'.$this->getVersion($container).'_entry_point.class');
-        $container->getDefinition('evolution.security.authentication.entry_point')
-            ->setClass($entryPointClass);
+        $this->registerClasses($container, $configs);
     }
 
-    /**
-     * @param  \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     * @return mixed
-     */
-    private function getVersion(ContainerBuilder $container)
+    public function registerClasses($container, $configuration)
     {
-        return $container->getParameter('evolution.legacy.version');
+        $legacy = $this->convertToCamel($configuration[0]['legacy']);
+
+        $container->setParameter(
+            'evolution.security.user_provider.class',
+            'Theodo\\Evolution\\SecurityBundle\\UserProvider\\' . $legacy . 'UserProvider'
+        );
+
+        $container->setParameter(
+            'evolution.security.encoder.class',
+            'Theodo\\Evolution\\SecurityBundle\\Encoder\\' . $legacy . 'PasswordEncoder'
+        );
+
+        $container->setParameter(
+            'theodo.evolution.security.encoder.algorithm',
+            $configuration[0]['sf_guard']['algorithm']
+        );
+    }
+
+    private function convertToCamel($str)
+    {
+        $parts = explode('_', $str);
+        $parts = $parts ? array_map('ucfirst', $parts) : array($str);
+
+        return implode('', $parts);
     }
 }

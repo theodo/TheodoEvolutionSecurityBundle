@@ -15,42 +15,11 @@ This bundle has a dependence with [TheodoEvolutionHttpFoundationBundle](https://
 Works for legacy app made with:
 
 * Symfony 1.0
+* Symfony 1.4
 
 ##Installation
 
-###With Symfony 2.0
-
-* 1. Add this in your deps file:
-
-```
-[TheodoEvolutionHttpFoundationBundle]
-    git=https://github.com/theodo/theodo-evolution.git
-    version=origin/http-foundation-bundle
-    target=../src/TheodoEvolution/HttpFoundationBundle
-[TheodoEvolutionSecurityBundle]
-    git=https://github.com/theodo/theodo-evolution.git
-    version=origin/security-bundle
-    target=../src/TheodoEvolution/SecurityBundle
-```
-
-* 2. Then execute this command in the root of your project:
-
-```
-$ bin/vendors install
-```
-
-* 3. Finally, add the bundles in your app/autoload.php:
-
-```php
-$loader->registerNamespaces(array(
-    
-    // Some namespaces
-    'TheodoEvolution\\HttpFoundationBundle'   => __DIR__.'/../src/TheodoEvolution/HttpFoundationBundle',
-    'TheodoEvolution\\SecurityBundle'   => __DIR__.'/../src/TheodoEvolution/SecurityBundle',
-));
-```
-
-###With Symfony 2.1
+This bundle requires Symfony 2.1 or higher.
 
 Add the following lines to your composer.json:
 
@@ -89,21 +58,6 @@ public function registerBundles()
 }
 ```
 
-* Create and define a evolution.security.authentication.entry_point class see Symony10EntryPoint for example
-* Create and define a evolution.security.legacy_user_repository service implementing LegacyUserRepositoryInterface
-* Use Theodo provider in your security.yml:
+* See the [documentation](Resources/doc/index.rst) for legacy specific configuration
 
-```
-security:
-    firewalls:
-        secured_area:
-            pattern:    ^/demo/secured/
-            evolution:
-                login_path: /demo/secured/login
-```
-
-## HowTo
-
-**TODO**: Test the service on another legacy project.
-
-Tip: look at the [Tests](https://github.com/theodo/theodo-evolution/tree/security-bundle/Tests)
+Tip: you can also look at the [Tests](https://github.com/theodo/theodo-evolution/tree/security-bundle/Tests)

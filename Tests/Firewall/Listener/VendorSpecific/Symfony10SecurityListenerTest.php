@@ -1,35 +1,26 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle\Tests\Firewall;
+namespace Theodo\Evolution\SecurityBundle\Tests\Firewall\Listener\VendorSpecific;
 
-use Theodo\Evolution\SecurityBundle\Firewall\Listener\SecurityListener;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Theodo\Evolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
+use Theodo\Evolution\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony10SecurityListener as SecurityListener;
+use Theodo\Evolution\SecurityBundle\Tests\Firewall\Listener\BaseSecurityListenerTestCase;
 
 /**
  * Class SecurityListenerTest description
  *
  * @author Benjamin Grandfond <benjaming@theodo.fr>
  */
-class SecurityListenerTest extends \PHPUnit_Framework_TestCase
+class Symfony10SecurityListenerTest extends BaseSecurityListenerTestCase
 {
-    // Session namespaces used by mocked bags
-    const AUTH_NAMESPACE = 'auth';
-    const ATTR_NAMESPACE = 'attr';
-
     protected $listener;
 
     protected $event;
 
     public function setUp()
     {
-        $am = $this->getMock('Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface', array(), array(), '', false);
-        $adm = $this->getMock('Symfony\Component\Security\Core\Authorization\AccessDecisionManager', array(), array(), '', false);
-        $sc = new \Symfony\Component\Security\Core\SecurityContext($am, $adm);
-        $bm = $this->getBagManagerConfigurationMock();
-        $logger = new \Symfony\Component\HttpKernel\Tests\Logger();
-
-        $this->listener = new SecurityListener($sc, $am, $bm, $logger);
+        $this->listener = $this->createListener('Theodo\Evolution\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony10SecurityListener');
 
         $request = $this->getMock('Symfony\Component\HttpFoundation\Request');
 
@@ -96,10 +87,11 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('allomatch'));
 
         $session = $this->getSession();
-        $session->expects($this->exactly(2))
+        $session->expects($this->exactly(3))
             ->method('getBag')
             ->will($this->returnValueMap(array(
                 array(self::AUTH_NAMESPACE, $authBag),
+                array(self::ATTR_NAMESPACE, $attrBag),
                 array(self::ATTR_NAMESPACE, $attrBag),
         )));
 
@@ -108,7 +100,7 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
             ->method('hasSession')
             ->will($this->returnValue(true));
 
-        $request->expects($this->exactly(2))
+        $request->expects($this->exactly(3))
             ->method('getSession')
             ->will($this->returnValue($session));
 
@@ -151,10 +143,11 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue('allomatch'));
 
         $session = $this->getSession();
-        $session->expects($this->exactly(2))
+        $session->expects($this->exactly(3))
             ->method('getBag')
             ->will($this->returnValueMap(array(
                 array(self::AUTH_NAMESPACE, $authBag),
+                array(self::ATTR_NAMESPACE, $attrBag),
                 array(self::ATTR_NAMESPACE, $attrBag),
         )));
 
@@ -163,7 +156,7 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
             ->method('hasSession')
             ->will($this->returnValue(true));
 
-        $request->expects($this->exactly(2))
+        $request->expects($this->exactly(3))
             ->method('getSession')
             ->will($this->returnValue($session));
 
@@ -183,21 +176,6 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Return a mocked Session instance.
-     *
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function getSession()
-    {
-        $session = $this->getMockBuilder('\Symfony\Component\HttpFoundation\Session\Storage\SessionStorage')
-            ->disableOriginalConstructor()
-            ->setMethods(array('getBag'))
-            ->getMock();
-
-        return $session;
-    }
-
-    /**
      * Return a mocked token.
      *
      * @return \PHPUnit_Framework_MockObject_MockObject
@@ -207,67 +185,5 @@ class SecurityListenerTest extends \PHPUnit_Framework_TestCase
         $token = $this->getMock('Symfony\Component\Security\Core\Authentication\Token\TokenInterface');
 
         return $token;
-    }
-
-    /**
-     * Return a mocked Response instance.
-     *
-     * @param $code
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function getResponse($code)
-    {
-        $response = $this->getMock('Symfony\Component\HttpFoundation\Response');
-        $response->expects($this->any())
-            ->method('getStatusCode')
-            ->will($this->returnValue($code));
-
-        return $response;
-    }
-
-    /**
-     * Return a mocked scalar bag.
-     *
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function getAuthBag()
-    {
-        $authBag = $this->getMockBuilder('Theodo\Evolution\SessionBundle\ScalarBag')
-                    ->disableOriginalConstructor()
-                    ->setMethods(array('getValue'))
-                    ->getMock();
-
-        return $authBag;
-    }
-
-    /**
-     * Return a mocked legacy attributes bag.
-     *
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function getAttrBag()
-    {
-        $attrBag = $this->getMockBuilder('Symfony\Component\HttpFoundation\Session\NamespacedAttributeBag')
-            ->disableOriginalConstructor()
-            ->setMethods(array('get', 'has'))
-            ->getMock();
-
-        return $attrBag;
-    }
-
-    /**
-     * Mock BagManagerConfigurationInterface to use common namespaces in the whole test
-     */
-    private function getBagManagerConfigurationMock()
-    {
-        $mock = $this->getMock('Theodo\Evolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface');
-        $mock->expects($this->any())
-            ->method('getNamespace')
-            ->will($this->returnValueMap(array(
-                array(BagManagerConfigurationInterface::AUTH_NAMESPACE, self::AUTH_NAMESPACE),
-                array(BagManagerConfigurationInterface::ATTRIBUTE_NAMESPACE, self::ATTR_NAMESPACE),
-            )));
-
-        return $mock;
     }
 }

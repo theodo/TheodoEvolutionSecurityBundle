@@ -26,12 +26,9 @@ class EvolutionSecurityFactory implements SecurityFactoryInterface
     public function create(ContainerBuilder $container, $id, $config, $userProvider, $defaultEntryPoint)
     {
         $providerId = $this->createAuthProviderId($container, $id, $config, $userProvider);
-
         $listenerId = $this->createListenerId($container, $id);
 
-        $entryPoint = $this->createEntryPoint($container, $id, $config, $defaultEntryPoint);
-
-        return array($providerId, $listenerId, $entryPoint);
+        return array($providerId, $listenerId, null);
     }
 
     public function createListenerId($container, $id)
@@ -51,18 +48,6 @@ class EvolutionSecurityFactory implements SecurityFactoryInterface
         ;
 
         return $providerId;
-    }
-
-    protected function createEntryPoint($container, $id, $config, $defaultEntryPoint)
-    {
-        $entryPointId = 'evolution.security.authentication.entry_point.'.$id;
-        $container
-            ->setDefinition($entryPointId, new DefinitionDecorator('evolution.security.authentication.entry_point'))
-            ->addArgument($config['login_path'])
-            ->addArgument(new Reference('session.storage.native'))
-        ;
-
-        return $entryPointId;
     }
 
     public function getPosition()
