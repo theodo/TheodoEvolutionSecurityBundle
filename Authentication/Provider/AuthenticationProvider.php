@@ -19,7 +19,7 @@ class AuthenticationProvider implements AuthenticationProviderInterface
     /**
      * @var \Symfony\Component\Security\Core\User\UserProviderInterface
      */
-    private $userProvider;
+    protected $userProvider;
 
     /**
      * @param UserProviderInterface $userProvider
