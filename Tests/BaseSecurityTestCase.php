@@ -10,7 +10,7 @@ use Theodo\Evolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterfa
  *
  * @author Marek Kalnik <marekk@theodo.fr>
  */
-class BaseSecurityTestCase extends \PHPUnit_Framework_TestCase
+abstract class BaseSecurityTestCase extends \PHPUnit_Framework_TestCase
 {
     // Session namespaces used by mocked bags
     const AUTH_NAMESPACE = 'auth';

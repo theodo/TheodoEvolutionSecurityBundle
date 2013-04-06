@@ -7,7 +7,7 @@ use Theodo\Evolution\SecurityBundle\Tests\BaseSecurityTestCase;
 /**
  * @author Marek Kalnik <marekk@theodo.fr>
  */
-class BaseSecurityListenerTestCase extends BaseSecurityTestCase
+abstract class BaseSecurityListenerTestCase extends BaseSecurityTestCase
 {
     // Session namespaces used by mocked bags
     const AUTH_NAMESPACE = 'auth';
