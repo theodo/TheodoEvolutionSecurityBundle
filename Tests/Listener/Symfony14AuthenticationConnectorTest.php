@@ -1,9 +1,9 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle\Tests\Authentication\Listener;
+namespace Theodo\Evolution\Bundle\SecurityBundle\Tests\Authentication\Listener;
 
-use Theodo\Evolution\SecurityBundle\Listener\Symfony14AuthenticationConnector;
-use Theodo\Evolution\SecurityBundle\Tests\BaseSecurityTestCase;
+use Theodo\Evolution\Bundle\SecurityBundle\Listener\Symfony14AuthenticationConnector;
+use Theodo\Evolution\Bundle\SecurityBundle\Tests\BaseSecurityTestCase;
 
 class Symfony14AuthenticationConnectorTest extends BaseSecurityTestCase
 {
@@ -36,13 +36,13 @@ class Symfony14AuthenticationConnectorTest extends BaseSecurityTestCase
 
     private function runListener($session)
     {
-        $repository = $this->getMock('Theodo\Evolution\SecurityBundle\Repository\Symfony14UserRepositoryInterface');
+        $repository = $this->getMock('Theodo\Evolution\Bundle\SecurityBundle\Repository\Symfony14UserRepositoryInterface');
         $repository->expects($this->once())
             ->method('findOneByUsername')
             ->with('allomatch')
             ->will($this->returnValue(new AllomatchUser()));
 
-        $token = $this->getMock('Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken');
+        $token = $this->getMock('Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionUserToken');
         $token->expects($this->once())
             ->method('getUser')
             ->will($this->returnValue('allomatch'));

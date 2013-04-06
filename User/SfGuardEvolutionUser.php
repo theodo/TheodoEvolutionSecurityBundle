@@ -1,6 +1,6 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle\User;
+namespace Theodo\Evolution\Bundle\SecurityBundle\User;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 

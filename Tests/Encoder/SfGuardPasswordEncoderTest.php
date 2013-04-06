@@ -1,11 +1,11 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle\Tests\Encoder;
+namespace Theodo\Evolution\Bundle\SecurityBundle\Tests\Encoder;
 
-use Theodo\Evolution\SecurityBundle\Encoder\SfGuardPasswordEncoder;
+use Theodo\Evolution\Bundle\SecurityBundle\Encoder\SfGuardPasswordEncoder;
 
 /**
- * Tests the Theodo\Evolution\SecurityBundle\Encoder\SfGuardPasswordEncoder class
+ * Tests the Theodo\Evolution\Bundle\SecurityBundle\Encoder\SfGuardPasswordEncoder class
  */
 class SfGuardPasswordEncoderTests extends \PHPUnit_Framework_TestCase
 {

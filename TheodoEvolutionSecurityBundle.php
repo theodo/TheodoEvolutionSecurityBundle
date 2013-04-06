@@ -1,10 +1,10 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle;
+namespace Theodo\Evolution\Bundle\SecurityBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Theodo\Evolution\SecurityBundle\Factory\EvolutionSecurityFactory;
+use Theodo\Evolution\Bundle\SecurityBundle\Factory\EvolutionSecurityFactory;
 
 class TheodoEvolutionSecurityBundle extends Bundle
 {

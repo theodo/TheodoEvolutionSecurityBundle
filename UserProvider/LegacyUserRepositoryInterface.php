@@ -1,6 +1,6 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle\UserProvider;
+namespace Theodo\Evolution\Bundle\SecurityBundle\UserProvider;
 
 /**
  * Allows to find a Legacy User

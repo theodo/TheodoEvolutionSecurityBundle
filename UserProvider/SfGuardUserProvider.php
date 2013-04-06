@@ -1,13 +1,13 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle\UserProvider;
+namespace Theodo\Evolution\Bundle\SecurityBundle\UserProvider;
 
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Theodo\Evolution\SecurityBundle\User\SfGuardEvolutionUser;
-use Theodo\Evolution\SecurityBundle\UserProvider\LegacyUserRepositoryInterface;
+use Theodo\Evolution\Bundle\SecurityBundle\User\SfGuardEvolutionUser;
+use Theodo\Evolution\Bundle\SecurityBundle\UserProvider\LegacyUserRepositoryInterface;
 
 /**
  * Class UserProvider description
@@ -80,6 +80,6 @@ class SfGuardUserProvider implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return $class === 'Theodo\Evolution\SecurityBundle\EvolutionUser';
+        return $class === 'Theodo\Evolution\Bundle\SecurityBundle\EvolutionUser';
     }
 }

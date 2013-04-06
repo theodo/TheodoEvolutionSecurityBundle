@@ -1,11 +1,11 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle\Tests\Firewall\Listener\VendorSpecific;
+namespace Theodo\Evolution\Bundle\SecurityBundle\Tests\Firewall\Listener\VendorSpecific;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Theodo\Evolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
-use Theodo\Evolution\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony10SecurityListener as SecurityListener;
-use Theodo\Evolution\SecurityBundle\Tests\Firewall\Listener\BaseSecurityListenerTestCase;
+use Theodo\Evolution\Bundle\SessionBundle\Manager\BagManagerConfigurationInterface;
+use Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony10SecurityListener as SecurityListener;
+use Theodo\Evolution\Bundle\SecurityBundle\Tests\Firewall\Listener\BaseSecurityListenerTestCase;
 
 /**
  * Class SecurityListenerTest description
@@ -20,7 +20,7 @@ class Symfony10SecurityListenerTest extends BaseSecurityListenerTestCase
 
     public function setUp()
     {
-        $this->listener = $this->createListener('Theodo\Evolution\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony10SecurityListener');
+        $this->listener = $this->createListener('Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony10SecurityListener');
 
         $request = $this->getMock('Symfony\Component\HttpFoundation\Request');
 
@@ -107,7 +107,7 @@ class Symfony10SecurityListenerTest extends BaseSecurityListenerTestCase
         $am = $this->listener->getAuthenticationManager();
         $am->expects($this->once())
             ->method('authenticate')
-            ->with($this->isInstanceOf('Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken'))
+            ->with($this->isInstanceOf('Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionUserToken'))
             ->will($this->returnCallback(function($token) {
                 $token->setAuthenticated(true);
 
@@ -163,7 +163,7 @@ class Symfony10SecurityListenerTest extends BaseSecurityListenerTestCase
         $am = $this->listener->getAuthenticationManager();
         $am->expects($this->once())
             ->method('authenticate')
-            ->with($this->isInstanceOf('Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken'))
+            ->with($this->isInstanceOf('Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionUserToken'))
             ->will($this->returnCallback(function() {
                 throw new \Symfony\Component\Security\Core\Exception\AuthenticationException('Exception thrown by AuthenticationProvider::authenticate method.');
             }));

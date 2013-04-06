@@ -1,5 +1,5 @@
 <?php
-namespace Theodo\Evolution\SecurityBundle\Encoder;
+namespace Theodo\Evolution\Bundle\SecurityBundle\Encoder;
 
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 

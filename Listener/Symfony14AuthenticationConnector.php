@@ -1,12 +1,12 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle\Listener;
+namespace Theodo\Evolution\Bundle\SecurityBundle\Listener;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Event\AuthenticationEvent;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Theodo\Evolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
-use Theodo\Evolution\SecurityBundle\Repository\Symfony14UserRepositoryInterface;
+use Theodo\Evolution\Bundle\SessionBundle\Manager\BagManagerConfigurationInterface;
+use Theodo\Evolution\Bundle\SecurityBundle\Repository\Symfony14UserRepositoryInterface;
 
 /**
  * This class should be registered on sucessful authentification.

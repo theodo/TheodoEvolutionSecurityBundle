@@ -1,6 +1,6 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle\DependencyInjection;
+namespace Theodo\Evolution\Bundle\SecurityBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

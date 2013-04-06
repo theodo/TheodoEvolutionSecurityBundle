@@ -10,17 +10,6 @@
             "homepage": "http://www.theodo.fr"
         }
     ],
-    "autoload": {
-        "psr-0": {
-            "Theodo\\Evolution\\SecurityBundle": ""
-        }
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "git@github.com:theodo/theodo-evolution.git"
-        }
-    ],
     "require": {
         "php": ">=5.3.3",
         "symfony/http-foundation": "2.1.*",
@@ -28,12 +17,23 @@
         "symfony/config": "2.1.*",
         "symfony/security": "2.1.*",
         "symfony/security-bundle": "2.1.*",
-        "theodo/evolution-http-foundation-bundle": "dev-http-foundation-bundle"
+        "theodo-evolution/session-bundle": "1.0.*@dev"
     },
     "require-dev": {
+        "phpunit/phpunit": "3.7.*",
         "symfony/yaml": "2.1.*",
         "symfony/dependency-injection": "2.1.*"
     },
     "minimum-stability": "dev",
-    "target-dir": "Theodo/Evolution/SecurityBundle"
+    "target-dir": "Theodo/Evolution/Bundle/SecurityBundle",
+    "autoload": {
+        "psr-0": {
+            "Theodo\\Evolution\\Bundle\\SecurityBundle": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
 }

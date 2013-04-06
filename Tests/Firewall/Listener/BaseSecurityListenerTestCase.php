@@ -1,8 +1,8 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle\Tests\Firewall\Listener;
+namespace Theodo\Evolution\Bundle\SecurityBundle\Tests\Firewall\Listener;
 
-use Theodo\Evolution\SecurityBundle\Tests\BaseSecurityTestCase;
+use Theodo\Evolution\Bundle\SecurityBundle\Tests\BaseSecurityTestCase;
 
 /**
  * @author Marek Kalnik <marekk@theodo.fr>

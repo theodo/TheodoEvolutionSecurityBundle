@@ -1,9 +1,9 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle\Tests\Authentication\Provider;
+namespace Theodo\Evolution\Bundle\SecurityBundle\Tests\Authentication\Provider;
 
-use Theodo\Evolution\SecurityBundle\Authentication\Provider\AuthenticationProvider;
-use Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken;
+use Theodo\Evolution\Bundle\SecurityBundle\Authentication\Provider\AuthenticationProvider;
+use Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionUserToken;
 
 /**
  * Class AuthenticationProviderTest description
@@ -33,15 +33,15 @@ class AuthenticationProviderTest extends \PHPUnit_Framework_TestCase
     {
         return array(
             array($this->getMock('Symfony\Component\Security\Core\Authentication\Token\AnonymousToken', array(), array(), '', false), false),
-            array($this->getMock('Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken', array(), array(), '', false), true),
+            array($this->getMock('Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionUserToken', array(), array(), '', false), true),
         );
     }
 
-    /**
-     * @dataProvider getInvalidTokens
-     */
-    public function testAuthenticateInvalidArgumentException($token)
+    public function testAuthenticateInvalidArgumentException()
     {
+        $token = new EvolutionUserToken();
+        $token->setUser('allomatch_user');
+
         $this->setExpectedException('Symfony\Component\Security\Core\Exception\UsernameNotFoundException', "No user with username \"{$token->getUsername()}\" found");
 
         $userProvider = $this->getUserProvider();
@@ -56,23 +56,6 @@ class AuthenticationProviderTest extends \PHPUnit_Framework_TestCase
         $this->provider = new AuthenticationProvider($userProvider);
 
         $this->provider->authenticate($token);
-    }
-
-    /**
-     * Return tokens that make the authentication provider
-     * throwing an error.
-     *
-     * @return array
-     */
-    public function getInvalidTokens()
-    {
-        // A token with an unknown user
-        $token = new EvolutionUserToken();
-        $token->setUser('allomatch_user');
-
-        return array(
-            array($token),
-        );
     }
 
     public function testAuthenticate()
@@ -92,7 +75,7 @@ class AuthenticationProviderTest extends \PHPUnit_Framework_TestCase
         $authentictatedToken = $this->provider->authenticate($token);
 
         $this->assertFalse($token->isAuthenticated());
-        $this->assertInstanceOf('Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken', $authentictatedToken);
+        $this->assertInstanceOf('Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionUserToken', $authentictatedToken);
         $this->assertTrue($authentictatedToken->isAuthenticated());
     }
 
@@ -139,7 +122,7 @@ class AuthenticationProviderTest extends \PHPUnit_Framework_TestCase
      */
     protected function getUser()
     {
-        $user = $this->getMockBuilder('Theodo\Evolution\SecurityBundle\EvolutionUser')
+        $user = $this->getMockBuilder('Theodo\Evolution\Bundle\SecurityBundle\EvolutionUser')
             ->disableOriginalConstructor()
             ->setMethods(array('__toString', 'getRoles'))
             ->getMock();
@@ -158,7 +141,8 @@ class AuthenticationProviderTest extends \PHPUnit_Framework_TestCase
     /**
      * @param $username
      * @param $attributes
-     * @return \Theodo\EvolutionBundle\Security\Authentication\Token\EvolutionUserToken
+     *
+     * @return EvolutionUserToken
      */
     protected function getToken($username, $attributes)
     {

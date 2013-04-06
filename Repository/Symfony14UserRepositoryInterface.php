@@ -1,7 +1,7 @@
 <?php
-namespace Theodo\Evolution\SecurityBundle\Repository;
+namespace Theodo\Evolution\Bundle\SecurityBundle\Repository;
 
-use Theodo\Evolution\SecurityBundle\UserProvider\LegacyUserRepositoryInterface;
+use Theodo\Evolution\Bundle\SecurityBundle\UserProvider\LegacyUserRepositoryInterface;
 
 /**
  * @author Marek Kalnik <marekk@theodo.fr>

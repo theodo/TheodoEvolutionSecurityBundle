@@ -1,8 +1,8 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle\Tests;
+namespace Theodo\Evolution\Bundle\SecurityBundle\Tests;
 
-use Theodo\Evolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface;
+use Theodo\Evolution\Bundle\SessionBundle\Manager\BagManagerConfigurationInterface;
 
 /**
  * This class groups common methods for security testing.
@@ -23,10 +23,10 @@ abstract class BaseSecurityTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function getAuthBag()
     {
-        $authBag = $this->getMockBuilder('Theodo\Evolution\SessionBundle\ScalarBag')
-                    ->disableOriginalConstructor()
-                    ->setMethods(array('getValue', 'set'))
-                    ->getMock();
+        $authBag = $this->getMockBuilder('Theodo\Evolution\Bundle\SessionBundle\ScalarBag')
+            ->disableOriginalConstructor()
+            ->setMethods(array('getValue', 'set'))
+            ->getMock();
 
         return $authBag;
     }
@@ -65,7 +65,7 @@ abstract class BaseSecurityTestCase extends \PHPUnit_Framework_TestCase
      */
     protected function getBagManagerConfigurationMock()
     {
-        $mock = $this->getMock('Theodo\Evolution\HttpFoundationBundle\Manager\BagManagerConfigurationInterface');
+        $mock = $this->getMock('Theodo\Evolution\Bundle\SessionBundle\Manager\BagManagerConfigurationInterface');
         $mock->expects($this->any())
             ->method('getNamespace')
             ->will(

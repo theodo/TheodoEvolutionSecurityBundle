@@ -1,14 +1,14 @@
 <?php
-namespace Theodo\Evolution\SecurityBundle\Tests\Firewall\Listener\VendorSpecific;
+namespace Theodo\Evolution\Bundle\SecurityBundle\Tests\Firewall\Listener\VendorSpecific;
 
-use Theodo\Evolution\SecurityBundle\Tests\Firewall\Listener\BaseSecurityListenerTestCase;
+use Theodo\Evolution\Bundle\SecurityBundle\Tests\Firewall\Listener\BaseSecurityListenerTestCase;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 /**
  * @author Marek Kalnik <marekk@theodo.fr>
  * @author Cyrille Jouineau <cyrillej@theodo.fr>
  *
- * @property $listener Theodo\Evolution\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony14SecurityListener
+ * @property $listener Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony14SecurityListener
  *
  * @todo: setter le username
  */
@@ -24,12 +24,12 @@ class Symfony14SecurityListenerTest extends BaseSecurityListenerTestCase
 
         $this->event = new GetResponseEvent($kernel, $request, 'GET');
 
-        $this->listener = $this->createListener('Theodo\Evolution\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony14SecurityListener');
+        $this->listener = $this->createListener('Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony14SecurityListener');
     }
 
     public function testUserRepositoryInjection()
     {
-        $userRepository = $this->getMock('Theodo\Evolution\SecurityBundle\Repository\Symfony14UserRepositoryInterface');
+        $userRepository = $this->getMock('Theodo\Evolution\Bundle\SecurityBundle\Repository\Symfony14UserRepositoryInterface');
 
         $this->listener->setUserRepository($userRepository);
 
@@ -43,7 +43,7 @@ class Symfony14SecurityListenerTest extends BaseSecurityListenerTestCase
     {
         $userId = 1;
 
-        $userRepository = $this->getMock('Theodo\Evolution\SecurityBundle\Repository\Symfony14UserRepositoryInterface');
+        $userRepository = $this->getMock('Theodo\Evolution\Bundle\SecurityBundle\Repository\Symfony14UserRepositoryInterface');
         $userRepository->expects($this->once())
             ->method('findOneByUserId')
             ->with($userId)
@@ -84,7 +84,7 @@ class Symfony14SecurityListenerTest extends BaseSecurityListenerTestCase
          if ($username == null) {
             $this->assertNull($token);
          } else {
-            $this->assertInstanceOf('Theodo\Evolution\SecurityBundle\Authentication\Token\EvolutionUserToken', $token);
+            $this->assertInstanceOf('Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionUserToken', $token);
             $this->assertEquals($username, $token->getUsername());
          }
     }

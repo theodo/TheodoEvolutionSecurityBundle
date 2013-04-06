@@ -1,10 +1,10 @@
 <?php
 
-namespace Theodo\Evolution\SecurityBundle\DependencyInjection;
+namespace Theodo\Evolution\Bundle\SecurityBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Yaml\Parser;
-use Theodo\Evolution\SecurityBundle\DependencyInjection\TheodoEvolutionSecurityExtension;
+use Theodo\Evolution\Bundle\SecurityBundle\DependencyInjection\TheodoEvolutionSecurityExtension;
 
 class TheodoEvolutionSecurityExtensionTest extends \PHPUnit_Framework_TestCase
 {
