@@ -1,63 +1,44 @@
-#README
+Theodo Evolution SecurityBundle
+==============================
 
+[![Build Status](https://travis-ci.org/theodo/TheodoEvolutionSecurityBundle.png)](https://travis-ci.org/theodo/TheodoEvolutionSecurityBundle)
 
-##What is Theodo Evolution?
+What is Theodo Evolution?
+-------------------------
 
+Theodo Evolution is a set of tools, methodologies and software components, making the code of a legacy php application
+more maintainable, easily scalable, secure and fast.
 
-Theodo Evolution is a set of tools, methodologies and software components, making the code of a legacy php application more maintainable, easily scalable, secure and fast.
-
-##TheodoEvolutionSecurityBundle
+Theodo Evolution's SecurityBundle
+--------------------------------
 
 This bundle allows to manage authentication and user token from the legacy appliction, into the new symfony2 application.
 
-This bundle has a dependence with [TheodoEvolutionHttpFoundationBundle](https://github.com/theodo/theodo-evolution/tree/http-foundation-bundle), which provides the legacy session to the sf2 app.
+This bundle has a dependency with [TheodoEvolutionSessionBundle](https://github.com/theodo/TheodoEvolutionSessionBundle), which provides the legacy session to the Symfony2 app.
 
 Works for legacy app made with:
 
-* Symfony 1.0
-* Symfony 1.4
+* symfony 1.0
+* symfony 1.4
 
-##Installation
 
-This bundle requires Symfony 2.1 or higher.
+Prerequisites
+-------------
 
-Add the following lines to your composer.json:
+This version requires at least Symfony 2.1
 
-```json
-    "repositories": [
-        ...
-        {
-            "type":"vcs",
-            "url":"git@github.com:theodo/theodo-evolution.git"
-        }
-        ...
-    ],
-    "require": {
-        ...
-        "theodo/evolution-security-bundle": "dev-security-bundle"
-        "theodo/evolution-http-foundation-bundle": "dev-http-foundation-bundle"
-        ...
-    },
+Documentation
+-------------
 
-```
+The bulk of the documentation is stored in the `Resources/doc/index.md`
+file in this bundle:
 
-##Configuration
+[Read the Documentation for master](Resources/doc/index.rst)
 
-### Legacy app made with symfony 1.0
+License
+-------
 
-* Add the bundles in your app/AppKernel.php:
+This bundle is under the MIT license. See the complete license in the bundle:
 
-```php
-public function registerBundles()
-{
-    $bundles = array(
-        //vendors, other bundles...
-        new TheodoEvolution\HttpFoundationBundle\TheodoEvolutionHttpFoundationBundle(),
-        new TheodoEvolution\SecurityBundle\TheodoEvolutionSecurityBundle(),
-    );
-}
-```
+    Resources/meta/LICENSE
 
-* See the [documentation](Resources/doc/index.rst) for legacy specific configuration
-
-Tip: you can also look at the [Tests](https://github.com/theodo/theodo-evolution/tree/security-bundle/Tests)
