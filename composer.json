@@ -1,5 +1,5 @@
 {
-    "name": "theodo/evolution-security-bundle",
+    "name": "theodo-evolution/security-bundle",
     "type": "library",
     "description": "The \"Theodo Evolution Security\" bundle",
     "keywords": [],
@@ -17,7 +17,7 @@
         "symfony/config": "2.1.*",
         "symfony/security": "2.1.*",
         "symfony/security-bundle": "2.1.*",
-        "theodo-evolution/session-bundle": "1.0.*@dev"
+        "theodo-evolution/session-bundle": "~1.1"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*",
