@@ -25,10 +25,9 @@
         "symfony/dependency-injection": "~2.1"
     },
     "minimum-stability": "dev",
-    "target-dir": "Theodo/Evolution/Bundle/SecurityBundle",
     "autoload": {
-        "psr-0": {
-            "Theodo\\Evolution\\Bundle\\SecurityBundle": ""
+        "psr-4": {
+            "Theodo\\Evolution\\Bundle\\SecurityBundle\\": ""
         }
     },
     "extra": {
