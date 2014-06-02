@@ -27,29 +27,27 @@ class TheodoEvolutionSecurityExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $this->loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/services'));
+        $this->loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config/services'));
+        $this->loader->load('services.xml');
 
-        $this->loader->load('security.yml');
-
-        $this->registerClasses($container, $configs);
     }
 
     public function registerClasses($container, $configuration)
     {
-        $legacy = $this->convertToCamel($configuration[0]['legacy']);
+        $legacy = $this->convertToCamel($configuration['legacy']);
 
         $container->setParameter(
-            'evolution.security.user_provider.class',
+            'theodo_evolution_security.user_provider.class',
             'Theodo\\Evolution\\SecurityBundle\\UserProvider\\' . $legacy . 'UserProvider'
         );
 
         $container->setParameter(
-            'evolution.security.encoder.class',
+            'theodo_evolution_security.encoder.class',
             'Theodo\\Evolution\\SecurityBundle\\Encoder\\' . $legacy . 'PasswordEncoder'
         );
 
         $container->setParameter(
-            'theodo.evolution.security.encoder.algorithm',
+            'theodo_evolution_security.encoder.algorithm',
             $configuration[0]['sf_guard']['algorithm']
         );
     }

@@ -33,17 +33,17 @@ class EvolutionSecurityFactory implements SecurityFactoryInterface
 
     public function createListenerId($container, $id)
     {
-        $listenerId = 'evolution.security.authentication.listener.legacy.' . $id;
-        $container->setDefinition($listenerId, new DefinitionDecorator('evolution.security.authentication.listener'));
+        $listenerId = 'theodo_evolution_security.authentication.listener.legacy.' . $id;
+        $container->setDefinition($listenerId, new DefinitionDecorator('theodo_evolution_security.authentication.listener'));
 
         return $listenerId;
     }
 
     public function createAuthProviderId($container, $id, $config, $userProvider)
     {
-        $providerId = 'evolution.security.authentication.provider.' . $id;
+        $providerId = 'theodo_evolution_security.authentication.provider.' . $id;
         $container
-            ->setDefinition($providerId, new DefinitionDecorator('evolution.security.authentication.provider'))
+            ->setDefinition($providerId, new DefinitionDecorator('theodo_evolution_security.authentication.provider'))
             ->replaceArgument(0, new Reference($userProvider))
         ;
 

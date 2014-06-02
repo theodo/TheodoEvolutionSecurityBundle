@@ -31,11 +31,11 @@ Integration instructions
     security:
         encoders:
             Acme\LegacyCompatBundle\Entity\SfGuardUser:
-                id: evolution.security.encoder
+                id: theodo_evolution_security.encoder
 
         providers:
             evolution
-                id: evolution.security.user_provider
+                id: theodo_evolution_security.user_provider
 
 3. [SF14] Configure the user repository and inject it into authentication listener::
 
@@ -45,8 +45,8 @@ Integration instructions
             arguments:
                 - @doctrine.orm.entity_manager
 
-        evolution.security.authentication.listener:
-            class: %evolution.security.authentication.listener.class%
+        theodo_evolution_security.authentication.listener:
+            class: %theodo_evolution_security.authentication.listener.class%
             public: false
             arguments:
                 - @security.context
@@ -57,7 +57,7 @@ Integration instructions
                 - [setUserRepository, [@acme.user_repository]]
 
     parameters:
-        evolution.security.authentication.listener.class: Theodo\Evolution\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony14SecurityListener 
+        theodo_evolution_security.authentication.listener.class: Theodo\Evolution\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony14SecurityListener
 
 The LegacyUserRepostiory has to implement the Symfony14UserRepositoryInterface for symfony 1.4
 
