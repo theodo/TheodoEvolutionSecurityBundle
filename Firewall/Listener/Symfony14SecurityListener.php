@@ -3,7 +3,7 @@
 namespace Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener;
 
 use Symfony\Component\HttpFoundation\Request;
-use Theodo\Evolution\Bundle\SessionBundle\Manager\BagManagerConfigurationInterface;
+use Theodo\Evolution\Bundle\SecurityBundle\UserProvider\LegacyUserRepositoryInterface;
 use Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionUserToken;
 use Theodo\Evolution\Bundle\SecurityBundle\Repository\Symfony14UserRepositoryInterface;
 use Theodo\Evolution\Bundle\SessionBundle\Manager\Symfony1\BagConfiguration;
@@ -15,23 +15,16 @@ use Theodo\Evolution\Bundle\SessionBundle\Manager\Symfony1\BagConfiguration;
  */
 class Symfony14SecurityListener extends SecurityListener
 {
-    private $userRepository;
-
     /**
-     * @param Request $request
-     * @return null|EvolutionUserToken
+     * {@inheritdoc}
      */
-    public function createToken(Request $request)
+    protected function createToken(Request $request)
     {
         $authBag = $request->getSession()
             ->getBag($this->bagConfiguration->getNamespace(BagConfiguration::AUTH_NAMESPACE));
-        $attributeBag = $request->getSession()
-            ->getBag($this->bagConfiguration->getNamespace(BagConfiguration::ATTRIBUTE_NAMESPACE));
 
         // Set the user and the authentication status according to the legacy session.
-        if (false == $authBag->getValue()
-            || false == $attributeBag->has('sfGuardSecurityUser.user_id')
-        ) {
+        if (false == $authBag->getValue()) {
             if (null !== $this->logger) {
                 $this->logger->debug('The legacy user is not authenticated.');
             }
@@ -55,16 +48,6 @@ class Symfony14SecurityListener extends SecurityListener
         return $token;
     }
 
-    public function setUserRepository(Symfony14UserRepositoryInterface $userRepository)
-    {
-        $this->userRepository = $userRepository;
-    }
-
-    public function getUserRepository()
-    {
-        return $this->userRepository;
-    }
-
     /**
      * Extracts the username from request. Tries to find it in repository.
      * Returns null in case it was not found.
@@ -76,9 +59,9 @@ class Symfony14SecurityListener extends SecurityListener
     public function extractUsername(Request $request)
     {
         $attributeBag = $request->getSession()
-            ->getBag($this->bagConfiguration->getNamespace(BagManagerConfigurationInterface::ATTRIBUTE_NAMESPACE));
+            ->getBag($this->bagConfiguration->getNamespace(BagConfiguration::ATTRIBUTE_NAMESPACE));
 
-        $user = $this->userRepository->findOneByUserId($attributeBag->get('sfGuardSecurityUser.user_id'));
+        $user = $this->userProvider->loadUserById($attributeBag->get('symfony/user/sfUser/attributes.user_id'));
 
         if (!$user) {
             return null;

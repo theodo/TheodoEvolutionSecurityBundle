@@ -20,11 +20,13 @@
             <argument type="service" id="security.context" />
             <argument type="service" id="security.authentication.manager" />
             <argument type="service" id="theodo_evolution.session.bag_manager_configuration" />
+            <argument type="service" id="theodo_evolution_security.user_provider" />
             <argument type="service" id="logger" on-invalid="ignore" />
         </service>
 
         <service id="theodo_evolution_security.user_provider" class="%theodo_evolution_security.user_provider.class%">
             <argument type="service" id="theodo_evolution_security.legacy_user_repository" />
+            <argument type="service" id="theodo_evolution_security.transformer.legacy_user"/>
         </service>
 
         <service id="theodo_evolution_security.authentication.provider" class="%theodo_evolution_security.authentication.provider.class%">

@@ -5,14 +5,15 @@ namespace Theodo\Evolution\Bundle\SecurityBundle\UserProvider;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Theodo\Evolution\Bundle\SecurityBundle\Exception\UserIdNotFoundException;
+use Theodo\Evolution\Bundle\SecurityBundle\UserProvider\Transformer\LegacyUserTransformerInterface;
 
 /**
  * LegacyUserProvider
  * 
  * @author Benjamin Grandfond <benjaming@theodo.fr>
  */
-class LegacyUserProvider implements UserProviderInterface
+class LegacyUserProvider implements LegacyUserProviderInterface
 {
     /**
      * @var LegacyUserRepositoryInterface
@@ -20,11 +21,18 @@ class LegacyUserProvider implements UserProviderInterface
     private $userRepository;
 
     /**
-     * @param LegacyUserRepositoryInterface $userRepository
+     * @var Transformer\LegacyUserTransformerInterface
      */
-    public function __construct(LegacyUserRepositoryInterface $userRepository)
+    private $transformer;
+
+    /**
+     * @param LegacyUserRepositoryInterface  $userRepository
+     * @param LegacyUserTransformerInterface $transformer
+     */
+    public function __construct(LegacyUserRepositoryInterface $userRepository, LegacyUserTransformerInterface $transformer)
     {
         $this->userRepository = $userRepository;
+        $this->transformer    = $transformer;
     }
 
     /**
@@ -47,10 +55,42 @@ class LegacyUserProvider implements UserProviderInterface
         $user = $this->userRepository->findOneByUsername($username);
 
         if (null == $user) {
-            throw new UsernameNotFoundException(sprintf('The username "%s" has not been found', $username));
+            $e = new UsernameNotFoundException();
+            $e->setUsername($username);
+
+            throw $e;
         }
 
-        return $user;
+        return $this->transformer->transform($user);
+    }
+
+    /**
+     * Loads the user for the given user id.
+     *
+     * This method must throw UserIdNotFoundException if the user is not
+     * found.
+     *
+     * @param int $id The user id
+     *
+     * @return UserInterface
+     *
+     * @see UserIdNotFoundException
+     *
+     * @throws UserIdNotFoundException if the user is not found
+     *
+     */
+    public function loadUserById($id)
+    {
+        $user = $this->userRepository->findOneById($id);
+
+        if (null == $user) {
+            $e = new UserIdNotFoundException();
+            $e->setId($id);
+
+            throw $e;
+        }
+
+        return $this->transformer->transform($user);
     }
 
     /**

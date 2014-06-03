@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Http\Firewall\ListenerInterface;
+use Theodo\Evolution\Bundle\SecurityBundle\UserProvider\LegacyUserProviderInterface;
 use Theodo\Evolution\Bundle\SessionBundle\Manager\BagManagerConfigurationInterface;
 use Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionUserToken;
 
@@ -38,6 +39,11 @@ abstract class SecurityListener implements ListenerInterface
     protected $bagConfiguration;
 
     /**
+     * @var LegacyUserProviderInterface
+     */
+    protected $provider;
+
+    /**
      * @var null|\Symfony\Bridge\Monolog\Logger
      */
     protected $logger;
@@ -46,13 +52,15 @@ abstract class SecurityListener implements ListenerInterface
      * @param SecurityContextInterface         $securityContext
      * @param AuthenticationManagerInterface   $authenticationManager
      * @param BagManagerConfigurationInterface $bagConfiguration
+     * @param LegacyUserProviderInterface      $provider
      * @param null|LoggerInterface             $logger
      */
-    public function __construct(SecurityContextInterface $securityContext, AuthenticationManagerInterface $authenticationManager, BagManagerConfigurationInterface $bagConfiguration, LoggerInterface $logger = null)
+    public function __construct(SecurityContextInterface $securityContext, AuthenticationManagerInterface $authenticationManager, BagManagerConfigurationInterface $bagConfiguration, LegacyUserProviderInterface $provider, LoggerInterface $logger = null)
     {
         $this->securityContext = $securityContext;
         $this->authenticationManager = $authenticationManager;
         $this->bagConfiguration = $bagConfiguration;
+        $this->userProvider = $provider;
         $this->logger = $logger;
     }
 
@@ -84,7 +92,7 @@ abstract class SecurityListener implements ListenerInterface
                 return $event->setResponse($returnValue);
             }
         } catch (AuthenticationException $e) {
-            if ($this->logger instanceof \Symfony\Component\HttpKernel\Log\LoggerInterface) {
+            if (null !== $this->logger) {
                 $this->logger->debug($e->getMessage());
             }
         }
@@ -96,7 +104,7 @@ abstract class SecurityListener implements ListenerInterface
      * @param  \Symfony\Component\HttpFoundation\Request                                     $request
      * @return null|\Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionUserToken
      */
-    abstract public function createToken(Request $request);
+    abstract protected function createToken(Request $request);
 
     /**
      * Set the security context token as anonymous.
