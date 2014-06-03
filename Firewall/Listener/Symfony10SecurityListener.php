@@ -1,11 +1,10 @@
 <?php
 
-namespace Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\VendorSpecific;
+namespace Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener;
 
 use Symfony\Component\HttpFoundation\Request;
-use Theodo\Evolution\Bundle\SessionBundle\Manager\BagManagerConfigurationInterface;
-use Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\SecurityListener;
 use Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionUserToken;
+use Theodo\Evolution\Bundle\SessionBundle\Manager\BagManagerConfigurationInterface;
 
 /**
  * @author Benjamin Grandfond <benjaming@theodo.fr>

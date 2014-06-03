@@ -5,15 +5,18 @@
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="theodo_evolution_security.authentication.listener.class">Theodo\Evolution\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony10SecurityListener</parameter>
-        <parameter key="theodo_evolution_security.authentication.provider.class">Theodo\Evolution\SecurityBundle\Authentication\Provider\AuthenticationProvider</parameter>
-        <parameter key="theodo_evolution_security.user_provider.class">Theodo\Evolution\SecurityBundle\UserProvider\UserProvider</parameter>
+        <!-- Declare an empty parameter that is set in the extension according to the configuration value -->
+        <parameter key="theodo_evolution_security.authentication.listener.class" />
+        <parameter key="theodo_evolution_security.authentication.listener.symfony10.class">Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\Symfony10SecurityListener</parameter>
+        <parameter key="theodo_evolution_security.authentication.listener.symfony14.class">Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\Symfony14SecurityListener</parameter>
+        <parameter key="theodo_evolution_security.authentication.legacy_entry_point.class">Theodo\Evolution\Bundle\SecurityBundle\EntryPoint\LegacyEntryPoint</parameter>
+        <parameter key="theodo_evolution_security.authentication.provider.class">Theodo\Evolution\Bundle\SecurityBundle\Authentication\Provider\AuthenticationProvider</parameter>
+        <parameter key="theodo_evolution_security.user_provider.class">Theodo\Evolution\Bundle\SecurityBundle\UserProvider\LegacyUserProvider</parameter>
+        <parameter key="theodo_evolution_security.encoder.callable.class">Theodo\Evolution\Bundle\SecurityBundle\Encoder\CallablePasswordEncoder</parameter>
     </parameters>
 
     <services>
-        <service id="theodo_evolution_security.authentication.listener" class="%theodo_evolution_security.authentication.listener.class%" public="false">
-            <tag name="kernel.event_subscriber" />
-            <tag name="monolog.logger" channel="event" />
+        <service id="theodo_evolution_security.authentication.listener"  class="%theodo_evolution_security.authentication.listener.class%" public="false">
             <argument type="service" id="security.context" />
             <argument type="service" id="security.authentication.manager" />
             <argument type="service" id="theodo_evolution.session.bag_manager_configuration" />
@@ -28,8 +31,13 @@
             <argument type="service" id="theodo_evolution_security.user_provider" />
         </service>
 
-        <service id="theodo_evolution_security.encoder" class="%theodo_evolution_security.encoder.class%">
+        <service id="theodo_evolution_security.encoder.callable" class="%theodo_evolution_security.encoder.callable.class%">
             <argument type="string">%theodo_evolution_security.encoder.algorithm%</argument>
+        </service>
+
+        <service id="theodo_evolution_security.authentication.legacy_entry_point" class="%theodo_evolution_security.authentication.legacy_entry_point.class%" public="false">
+            <argument type="string" />
+            <argument type="service" id="session" />
         </service>
     </services>
 </container>

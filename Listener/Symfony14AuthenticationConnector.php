@@ -22,8 +22,9 @@ class Symfony14AuthenticationConnector
     private $session;
 
     /**
-     * @param BagManagerconfigurationInterface $bagConfiguration
+     * @param BagManagerConfigurationInterface $bagConfiguration
      * @param Symfony14UserRepositoryInterface $userRepository
+     * @param SessionInterface $session
      */
     public function __construct(BagManagerConfigurationInterface $bagConfiguration, Symfony14UserRepositoryInterface $userRepository, SessionInterface $session)
     {

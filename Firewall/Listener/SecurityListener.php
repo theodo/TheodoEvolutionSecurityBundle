@@ -43,9 +43,10 @@ abstract class SecurityListener implements ListenerInterface
     protected $logger;
 
     /**
-     * @param SecurityContextInterface       $securityContext
-     * @param AuthenticationManagerInterface $authenticationManager
-     * @param null|LoggerInterface           $logger
+     * @param SecurityContextInterface         $securityContext
+     * @param AuthenticationManagerInterface   $authenticationManager
+     * @param BagManagerConfigurationInterface $bagConfiguration
+     * @param null|LoggerInterface             $logger
      */
     public function __construct(SecurityContextInterface $securityContext, AuthenticationManagerInterface $authenticationManager, BagManagerConfigurationInterface $bagConfiguration, LoggerInterface $logger = null)
     {

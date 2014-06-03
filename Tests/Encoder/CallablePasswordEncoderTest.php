@@ -2,19 +2,19 @@
 
 namespace Theodo\Evolution\Bundle\SecurityBundle\Tests\Encoder;
 
-use Theodo\Evolution\Bundle\SecurityBundle\Encoder\SfGuardPasswordEncoder;
+use Theodo\Evolution\Bundle\SecurityBundle\Encoder\CallablePasswordEncoder;
 
 /**
- * Tests the Theodo\Evolution\Bundle\SecurityBundle\Encoder\SfGuardPasswordEncoder class
+ * Tests the Theodo\Evolution\Bundle\SecurityBundle\Encoder\CallablePasswordEncoder class
  */
-class SfGuardPasswordEncoderTests extends \PHPUnit_Framework_TestCase
+class BasicPasswordEncoderTests extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test if correct interface is implemented
      */
     public function testInterface()
     {
-        $encoder = new SfGuardPasswordEncoder('sha1');
+        $encoder = new CallablePasswordEncoder('sha1');
         $this->assertInstanceOf('Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface', $encoder);
     }
 
@@ -23,12 +23,12 @@ class SfGuardPasswordEncoderTests extends \PHPUnit_Framework_TestCase
      */
     public function testInvalidAlgorithm()
     {
-        $encoder = new SfGuardPasswordEncoder('☺ ');
+        $encoder = new CallablePasswordEncoder('☺ ');
     }
 
     public function testIsPasswordValid()
     {
-        $encoder = new SfGuardPasswordEncoder('sha1');
+        $encoder = new CallablePasswordEncoder('sha1');
 
         $encoded = sha1('salt' . 'pass');
         $this->assertTrue($encoder->isPasswordValid($encoded, 'pass', 'salt'));
@@ -37,7 +37,7 @@ class SfGuardPasswordEncoderTests extends \PHPUnit_Framework_TestCase
 
     public function testReversed()
     {
-        $encoder = new SfGuardPasswordEncoder('md5');
+        $encoder = new CallablePasswordEncoder('md5');
 
         $encoded = md5('salt' . 'pass');
         $this->assertEquals($encoded, $encoder->encodePassword('pass', 'salt'));

@@ -1,10 +1,10 @@
 <?php
 
-namespace Theodo\Evolution\Bundle\SecurityBundle\Tests\Firewall\Listener\VendorSpecific;
+namespace Theodo\Evolution\Bundle\SecurityBundle\Tests\Firewall\Listener;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Theodo\Evolution\Bundle\SessionBundle\Manager\BagManagerConfigurationInterface;
-use Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony10SecurityListener as SecurityListener;
+use Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\Symfony10SecurityListener as SecurityListener;
 use Theodo\Evolution\Bundle\SecurityBundle\Tests\Firewall\Listener\BaseSecurityListenerTestCase;
 
 /**
@@ -20,7 +20,7 @@ class Symfony10SecurityListenerTest extends BaseSecurityListenerTestCase
 
     public function setUp()
     {
-        $this->listener = $this->createListener('Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony10SecurityListener');
+        $this->listener = $this->createListener('Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\Symfony10SecurityListener');
 
         $request = $this->getMock('Symfony\Component\HttpFoundation\Request');
 

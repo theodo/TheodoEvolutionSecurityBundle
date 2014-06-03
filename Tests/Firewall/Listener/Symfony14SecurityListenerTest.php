@@ -1,5 +1,5 @@
 <?php
-namespace Theodo\Evolution\Bundle\SecurityBundle\Tests\Firewall\Listener\VendorSpecific;
+namespace Theodo\Evolution\Bundle\SecurityBundle\Tests\Firewall\Listener;
 
 use Theodo\Evolution\Bundle\SecurityBundle\Tests\Firewall\Listener\BaseSecurityListenerTestCase;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
  * @author Marek Kalnik <marekk@theodo.fr>
  * @author Cyrille Jouineau <cyrillej@theodo.fr>
  *
- * @property $listener Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony14SecurityListener
+ * @property $listener Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\Symfony14SecurityListener
  *
  * @todo: setter le username
  */
@@ -24,7 +24,7 @@ class Symfony14SecurityListenerTest extends BaseSecurityListenerTestCase
 
         $this->event = new GetResponseEvent($kernel, $request, 'GET');
 
-        $this->listener = $this->createListener('Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\VendorSpecific\Symfony14SecurityListener');
+        $this->listener = $this->createListener('Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\Symfony14SecurityListener');
     }
 
     public function testUserRepositoryInjection()

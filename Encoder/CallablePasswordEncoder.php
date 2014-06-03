@@ -5,11 +5,11 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 
 /**
  * This class handles password validation in the same manner as the famous
- * sfGuardPlugin for Symfony 1. It's main purpose is to serve as a security compatiblity layer
+ * sfGuardPlugin for Symfony 1. It's main purpose is to serve as a security compatibility layer
  * when migrating from Symfony 1 to Symfony2.
  *
  * When you finish the migration of all security functions of your legacy application it
- * is strongly suggested you migrate your user managemenet to another bundle.
+ * is strongly suggested you migrate your user management to another bundle.
  *
  * WARNINGS:
  * 1. This class does not handle sf_guard_plugin_check_password_callable option.
@@ -17,14 +17,15 @@ use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
  *
  * @author Marek Kalnik <marekk@theodo.fr>
  */
-class SfGuardPasswordEncoder implements PasswordEncoderInterface
+class CallablePasswordEncoder implements PasswordEncoderInterface
 {
     private $algorithm;
 
     /**
      * Configures the Encoder
      *
-     * @param callable $algorithm
+     * @throws \InvalidArgumentException
+     * @param  callable $algorithm
      */
     public function __construct($algorithm)
     {

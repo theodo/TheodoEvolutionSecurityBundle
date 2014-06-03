@@ -25,21 +25,33 @@ class EvolutionSecurityFactory implements SecurityFactoryInterface
      */
     public function create(ContainerBuilder $container, $id, $config, $userProvider, $defaultEntryPoint)
     {
-        $providerId = $this->createAuthProviderId($container, $id, $config, $userProvider);
+        $providerId = $this->createAuthProviderId($container, $id, $userProvider);
         $listenerId = $this->createListenerId($container, $id);
+        $entryPoint = $this->createEntryPoint($container, $id, $config);
 
-        return array($providerId, $listenerId, null);
+        return array($providerId, $listenerId, $entryPoint);
     }
 
-    public function createListenerId($container, $id)
+    /**
+     * @param  ContainerBuilder $container
+     * @param  string $id
+     * @return string
+     */
+    private function createListenerId(ContainerBuilder $container, $id)
     {
-        $listenerId = 'theodo_evolution_security.authentication.listener.legacy.' . $id;
+        $listenerId = 'theodo_evolution_security.authentication.listener.' . $id;
         $container->setDefinition($listenerId, new DefinitionDecorator('theodo_evolution_security.authentication.listener'));
 
         return $listenerId;
     }
 
-    public function createAuthProviderId($container, $id, $config, $userProvider)
+    /**
+     * @param ContainerBuilder $container
+     * @param $id
+     * @param $userProvider
+     * @return string
+     */
+    private function createAuthProviderId(ContainerBuilder $container, $id, $userProvider)
     {
         $providerId = 'theodo_evolution_security.authentication.provider.' . $id;
         $container
@@ -48,6 +60,24 @@ class EvolutionSecurityFactory implements SecurityFactoryInterface
         ;
 
         return $providerId;
+    }
+
+    /**
+     * @param ContainerBuilder $container
+     * @param $id
+     * @param $config
+     * @return string
+     */
+    private function createEntryPoint(ContainerBuilder $container, $id, $config)
+    {
+        $entryPointId = 'theodo_evolution_security.authentication.legacy_entry_point.'.$id;
+        $container
+            ->setDefinition($entryPointId, new DefinitionDecorator('theodo_evolution_security.authentication.legacy_entry_point'))
+            ->replaceArgument(0, $config['login_path'])
+            ->replaceArgument(1, new Reference('session'))
+        ;
+
+        return $entryPointId;
     }
 
     public function getPosition()

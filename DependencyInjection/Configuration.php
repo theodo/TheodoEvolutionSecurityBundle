@@ -23,52 +23,20 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('legacy')
-                    ->isRequired()
-                    ->cannotBeEmpty()
-                    ->validate()
-                        ->ifNotInArray($this->getSupportedLegacyTypes())
-                        ->thenInvalid('Unsupported legacy security type.')
-                    ->end()
+            ->scalarNode('user_repository')
+                ->info('The service name of the repository that should be used to retrieve the user to authenticate')
+                ->isRequired()
+                ->end()
+            ->scalarNode('algorithm')
+                ->info('The algorithm to use with the callable password encoder')
+                ->defaultValue('sha1')
+                ->end()
+            ->scalarNode('authentication_listener')
+                ->info('The authentication listener to use, can be symfony10 or symfony14.')
                 ->end()
             ->end()
         ;
-
-        foreach ($this->getSupportedLegacyTypes() as $type) {
-            call_user_func(array($this, 'add' . $this->convertToCamel($type) . 'Section'), $rootNode);
-        }
 
         return $treeBuilder;
-    }
-
-    public function addSfGuardSection(ArrayNodeDefinition $rootNode)
-    {
-        $rootNode
-            ->children()
-                ->arrayNode('sf_guard')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('algorithm')->defaultValue('sha1')->end()
-                    ->end()
-                ->end()
-            ->end()
-            ->beforeNormalization()
-                ->ifTrue(function($v) { return !isset($v['legacy']) ||$v['legacy'] != 'sf_guard'; })
-                ->then(function($v) { unset($v['sf_guard']); })
-            ->end()
-        ;
-    }
-
-    protected function getSupportedLegacyTypes()
-    {
-        return array('sf_guard');
-    }
-
-    private function convertToCamel($str)
-    {
-        $parts = explode('_', $str);
-        $parts = $parts ? array_map('ucfirst', $parts) : array($str);
-
-        return implode('', $parts);
     }
 }
