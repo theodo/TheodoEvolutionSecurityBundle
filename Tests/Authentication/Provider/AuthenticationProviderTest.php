@@ -3,7 +3,7 @@
 namespace Theodo\Evolution\Bundle\SecurityBundle\Tests\Authentication\Provider;
 
 use Theodo\Evolution\Bundle\SecurityBundle\Authentication\Provider\AuthenticationProvider;
-use Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionUserToken;
+use Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionToken;
 
 /**
  * Class AuthenticationProviderTest description
@@ -39,7 +39,7 @@ class AuthenticationProviderTest extends \PHPUnit_Framework_TestCase
 
     public function testAuthenticateInvalidArgumentException()
     {
-        $token = new EvolutionUserToken();
+        $token = new EvolutionToken();
         $token->setUser('allomatch_user');
 
         $this->setExpectedException('Symfony\Component\Security\Core\Exception\UsernameNotFoundException', "No user with username \"{$token->getUsername()}\" found");
@@ -68,7 +68,7 @@ class AuthenticationProviderTest extends \PHPUnit_Framework_TestCase
 
         $this->provider = new AuthenticationProvider($userProvider);
 
-        $token = new EvolutionUserToken();
+        $token = new EvolutionToken();
         $token->setUser('allomatch_user');
         $token->setAttribute('is_authenticated', true);
 
@@ -142,11 +142,11 @@ class AuthenticationProviderTest extends \PHPUnit_Framework_TestCase
      * @param $username
      * @param $attributes
      *
-     * @return EvolutionUserToken
+     * @return EvolutionToken
      */
     protected function getToken($username, $attributes)
     {
-        $token = new EvolutionUserToken();
+        $token = new EvolutionToken();
         $token->setUser($username);
         $token->setAttributes($attributes);
 

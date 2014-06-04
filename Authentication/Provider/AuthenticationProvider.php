@@ -5,7 +5,7 @@ namespace Theodo\Evolution\Bundle\SecurityBundle\Authentication\Provider;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionUserToken;
+use Theodo\Evolution\Bundle\SecurityBundle\Authentication\Token\EvolutionToken;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Authentication\Provider\AuthenticationProviderInterface;
 
@@ -53,7 +53,7 @@ class AuthenticationProvider implements AuthenticationProviderInterface
             }
 
             // Recreate the token
-            $authenticatedToken = new EvolutionUserToken($user->getRoles());
+            $authenticatedToken = new EvolutionToken($user->getRoles());
             $authenticatedToken->setUser($user);
             $authenticatedToken->setAuthenticated(true);
 
@@ -72,7 +72,7 @@ class AuthenticationProvider implements AuthenticationProviderInterface
      */
     public function supports(TokenInterface $token)
     {
-        return $token instanceof EvolutionUserToken;
+        return $token instanceof EvolutionToken;
     }
 
     /**
