@@ -45,8 +45,10 @@ class AuthenticationProvider implements AuthenticationProviderInterface
             throw new AuthenticationException('The given token is not supported by the authentication provider');
         }
 
+        // @todo define wich strategy the provider should use between those available (username, id)
         $user = $this->userProvider->loadUserByUsername($token->getUsername());
 
+        //
         if ($user) {
             if (false == $this->isLegacyAuthenticated($token)) {
                 return $token;

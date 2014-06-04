@@ -4,7 +4,7 @@ namespace Theodo\Evolution\Bundle\SecurityBundle\Tests\Firewall\Listener;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Theodo\Evolution\Bundle\SessionBundle\Manager\BagManagerConfigurationInterface;
-use Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\Symfony10SecurityListener as SecurityListener;
+use Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\Symfony10EvolutionSecurityListener as SecurityListener;
 use Theodo\Evolution\Bundle\SecurityBundle\Tests\Firewall\Listener\BaseSecurityListenerTestCase;
 
 /**
