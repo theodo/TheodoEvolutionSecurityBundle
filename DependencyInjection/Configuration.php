@@ -35,9 +35,6 @@ class Configuration implements ConfigurationInterface
                 ->info('The algorithm to use with the callable password encoder')
                 ->defaultValue('sha1')
                 ->end()
-            ->scalarNode('authentication_listener')
-                ->info('The authentication listener to use, can be symfony10 or symfony14.')
-                ->end()
             ->end()
         ;
 

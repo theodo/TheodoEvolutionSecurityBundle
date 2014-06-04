@@ -6,9 +6,7 @@
 
     <parameters>
         <!-- Declare an empty parameter that is set in the extension according to the configuration value -->
-        <parameter key="theodo_evolution_security.authentication.listener.class" />
-        <parameter key="theodo_evolution_security.authentication.listener.symfony10.class">Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\Symfony10SecurityListener</parameter>
-        <parameter key="theodo_evolution_security.authentication.listener.symfony14.class">Theodo\Evolution\Bundle\SecurityBundle\Firewall\Listener\Symfony14SecurityListener</parameter>
+        <parameter key="theodo_evolution_security.authentication.listener.class">Theodo\Evolution\Bundle\SecurityBundle\Firewall\EvolutionSecurityListener</parameter>
         <parameter key="theodo_evolution_security.authentication.legacy_entry_point.class">Theodo\Evolution\Bundle\SecurityBundle\EntryPoint\LegacyEntryPoint</parameter>
         <parameter key="theodo_evolution_security.authentication.provider.class">Theodo\Evolution\Bundle\SecurityBundle\Authentication\Provider\AuthenticationProvider</parameter>
         <parameter key="theodo_evolution_security.user_provider.class">Theodo\Evolution\Bundle\SecurityBundle\UserProvider\LegacyUserProvider</parameter>

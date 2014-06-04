@@ -33,12 +33,5 @@ class TheodoEvolutionSecurityExtension extends Extension
         $container->setParameter('theodo_evolution_security.encoder.algorithm', $config['algorithm']);
         $container->setAlias('theodo_evolution_security.legacy_user_repository', $config['user_repository']);
         $container->setAlias('theodo_evolution_security.transformer.legacy_user', $config['user_transformer']);
-
-        // @todo handle the case if the authentication listener parameter is a customer service id
-        if (!empty($config['authentication_listener'])) {
-            $authenticationlistenerClass = $container->getParameter('theodo_evolution_security.authentication.listener.'.$config['authentication_listener'].'.class');
-            $container->setParameter('theodo_evolution_security.authentication.listener.class', $authenticationlistenerClass);
-        }
-
     }
 }
